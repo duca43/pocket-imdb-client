@@ -47,7 +47,7 @@ class AuthService extends ApiService {
     this.createSession({ access: data.access });
     const userData = await this.getUserData();
     this.updateUserInStorage(userData);
-    return this.getUser();
+    return userData;
   };
 
   signup = async signupData => {
