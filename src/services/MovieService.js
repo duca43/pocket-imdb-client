@@ -1,7 +1,7 @@
 import ApiService from './ApiService';
 
 const ENDPOINTS = {
-  MOVIES: '/api/movies'
+  MOVIES: '/movies'
 };
 
 class MovieService extends ApiService {

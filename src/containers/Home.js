@@ -17,9 +17,11 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <p>Welcome to Pocket IMDb</p>
-        <h4>Movies</h4>
-        {this.renderMovies()}
+        <h1 className="text-center my-2">Welcome to Pocket IMDb</h1>
+        <h4 className="text-center mt-3">Movies</h4>
+        <div className="row">
+          {this.renderMovies()}
+        </div>
       </div>
     );
   }
