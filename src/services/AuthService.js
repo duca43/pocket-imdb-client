@@ -1,9 +1,9 @@
 import ApiService from './ApiService';
 
 const ENDPOINTS = {
-  LOGIN: '/api/auth/login',
+  LOGIN: '/login/',
   REGISTER: '/users/',
-  LOGOUT: '/logout'
+  GET_USER_DATA: '/users/me'
 };
 
 class AuthService extends ApiService {
@@ -27,7 +27,7 @@ class AuthService extends ApiService {
     const token = this.getToken();
     if (token) {
       this.api.attachHeaders({
-        Authorization: `Bearer ${token.access_token}`
+        Authorization: `Bearer ${token}`
       });
     }
   };
@@ -44,8 +44,10 @@ class AuthService extends ApiService {
 
   login = async loginData => {
     const { data } = await this.apiClient.post(ENDPOINTS.LOGIN, loginData);
-    this.createSession(data);
-    return data;
+    this.createSession({ access: data.access });
+    const userData = await this.getUserData();
+    this.updateUserInStorage(userData);
+    return userData;
   };
 
   signup = async signupData => {
@@ -54,20 +56,23 @@ class AuthService extends ApiService {
     return data;
   };
 
-  logout = async () => {
-    const { data } = await this.apiClient.post(ENDPOINTS.LOGOUT);
+  logout = () => {
     this.destroySession();
-    return { ok: true, data };
+  };
+
+  getUserData = async () => {
+    const { data } = await this.apiClient.get(ENDPOINTS.GET_USER_DATA);
+    return data;
   };
 
   getToken = () => {
     const user = localStorage.getItem('user');
-    return user ? JSON.parse(user).access_token : undefined;
+    return user ? JSON.parse(user).access : undefined;
   };
 
   isAuthenticated = () => {
     const user = JSON.parse(localStorage.getItem('user'));
-    return user && user.access_token ? true : false;
+    return user && user.access ? true : false;
   };
 
   getUser = () => {
