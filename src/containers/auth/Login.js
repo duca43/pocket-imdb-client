@@ -1,48 +1,75 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
 import { logIn } from '../../store/actions/AuthActions';
+import { Formik } from "formik";
+import { LoginSchema } from '../../validations/login';
 
 class Login extends Component {
-  state = {
-    email: '',
-    password: ''
-  };
+  
+  constructor(props) {
+    super(props)
+    this.initialValues = { 
+      email: '',
+      password: ''
+    }
+  }
 
-  handleInputChange = field => event => this.setState({ [field]: event.target.value });
-
-  submit = event => {
-    event.preventDefault();
-
-    let logInData = {
-      email: this.state.email,
-      password: this.state.password
-    };
-    this.props.logIn(logInData);
+  submit = values => {
+    this.props.logIn(values);
   };
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.submit}>
-          <h2>Log In</h2>
-          <input
-            type="text"
-            placeholder="Email"
-            value={this.state.email}
-            onChange={this.handleInputChange('email')}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={this.state.password}
-            onChange={this.handleInputChange('password')}
-          />
-          <input type="submit" value="Log in" />
-          {this.props.loginError && <p>Login error</p>}
-        </form>
-      </div>
+      <Formik
+       initialValues={ this.initialValues }
+       validationSchema = { LoginSchema } 
+       onSubmit={values => this.submit(values)}
+     >
+       {({
+         values,
+         errors,
+         touched,
+         handleChange,
+         handleBlur,
+         handleSubmit
+       }) => (
+        <div className="row justify-content-center">
+          <form onSubmit={handleSubmit} className="mt-5 w-25">
+            <h2 className="text-center mb-4">Log In</h2>
+            <div className="form-group">
+              <input
+                type="email"
+                name="email"
+                className="form-control"
+                placeholder="Email"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.email}
+                />
+              {errors.email && touched.email && errors.email}
+            </div>
+            <div className="form-group">
+              <input
+                type="password"
+                name="password"
+                className="form-control"
+                placeholder="Password"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.password}
+                />
+            </div>
+            <div className="row justify-content-center my-3">
+              <input type="submit" value="Log in" className="btn btn-primary" />
+            </div>
+            <div className="row justify-content-center mt-4">
+              {this.props.loginError.flag && <p>{this.props.loginError.message}</p>}
+            </div>
+          </form>
+        </div>
+       )}
+     </Formik>
     );
   }
 }

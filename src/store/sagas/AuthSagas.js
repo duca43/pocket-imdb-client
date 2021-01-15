@@ -12,7 +12,7 @@ export function* userLogin({ payload }) {
     yield put(push('/home'));
     yield put(go());
   } catch (error) {
-    yield put(loginError(true));
+    yield put(loginError({flag: true, message: extractErrorMessage(error)}));
   }
 }
 
@@ -23,8 +23,11 @@ export function* userRegister({ payload }) {
     yield put(push('/login'));
     yield put(go());
   } catch (error) {
-    const errorData = error.response.data;
-    const message = errorData[Object.keys(errorData)[0]];
-    yield put(registerError({flag: true, message: message}));
+    yield put(registerError({flag: true, message: extractErrorMessage(error)}));
   }
+}
+
+function extractErrorMessage(error) {
+  const errorData = error.response.data;
+  return errorData[Object.keys(errorData)[0]];
 }
