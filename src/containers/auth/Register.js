@@ -1,56 +1,84 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
 import { register } from '../../store/actions/AuthActions';
+import { Formik } from "formik";
+import { RegistrationSchema } from '../../validations/registration';
 
 class Register extends Component {
-  state = {
-    email: '',
-    password: '',
-    name: ''
-  };
-
-  handleInputChange = field => event => this.setState({ [field]: event.target.value });
-
-  submit = event => {
-    event.preventDefault();
-
-    let registerData = {
-      email: this.state.email,
-      password: this.state.password,
-      name: this.state.name
-    };
-    this.props.register(registerData);
+  
+  submit = values => {
+    this.props.register(values);
   };
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.submit}>
-          <h2>Register</h2>
-          <input
-            type="text"
-            placeholder="Email"
-            value={this.state.email}
-            onChange={this.handleInputChange('email')}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={this.state.password}
-            onChange={this.handleInputChange('password')}
-          />
-          <input
-            type="text"
-            placeholder="Name"
-            value={this.state.name}
-            onChange={this.handleInputChange('name')}
-          />
-          <input type="submit" value="Register" />
-          {this.props.registerError && <p>registerError</p>}
-        </form>
-      </div>
+      <Formik
+        initialValues={{ 
+          email: '',
+          password: '',
+          name: ''
+        }}
+        validationSchema = { RegistrationSchema } 
+        onSubmit={values => this.submit(values)}
+     >
+       {({
+         values,
+         errors,
+         touched,
+         handleChange,
+         handleBlur,
+         handleSubmit
+       }) => (
+        <div className="row justify-content-center">
+          <form onSubmit={handleSubmit} className="mt-5 w-25">
+            <h2 className="text-center mb-4">Register</h2>
+            <div className="form-group">
+              <input
+                type="email"
+                name="email"
+                className="form-control"
+                placeholder="Email"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.email}
+                />
+              {errors.email && touched.email && errors.email}
+            </div>
+            <div className="form-group">
+              <input
+                type="password"
+                name="password"
+                className="form-control"
+                placeholder="Password"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.password}
+                />
+              {errors.password && touched.password && errors.password}
+            </div>
+            <div className="form-group">
+              <input
+                type="text"
+                name="name"
+                className="form-control"
+                placeholder="Name"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.name}
+                />
+              {errors.name && touched.name && errors.name}
+            </div>
+            <div className="row justify-content-center my-3">
+              <input type="submit" value="Register" className="btn btn-primary" />
+            </div>
+            <div className="row justify-content-center mt-4">
+              {this.props.registerError.hasError && <p>{this.props.registerError.message}</p>}
+            </div>
+          </form>
+        </div>
+       )}
+     </Formik>
     );
   }
 }
