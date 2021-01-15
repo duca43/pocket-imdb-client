@@ -1,11 +1,12 @@
 import ApiService from './ApiService';
 
 const ENDPOINTS = {
-  MOVIES: '/movies'
+  MOVIES: '/api/movies'
 };
 
 class MovieService extends ApiService {
   getMovies = () => {
+    this.api.removeHeaders(['Authorization'])
     return this.apiClient.get(ENDPOINTS.MOVIES);
   };
 }
