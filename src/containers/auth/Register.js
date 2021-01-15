@@ -6,16 +6,7 @@ import { Formik } from "formik";
 import { RegistrationSchema } from '../../validations/registration';
 
 class Register extends Component {
-
-  constructor(props) {
-    super(props)
-    this.initialValues = { 
-      email: '',
-      password: '',
-      name: ''
-    }
-  }
-
+  
   submit = values => {
     this.props.register(values);
   };
@@ -23,9 +14,13 @@ class Register extends Component {
   render() {
     return (
       <Formik
-       initialValues={ this.initialValues }
-       validationSchema = { RegistrationSchema } 
-       onSubmit={values => this.submit(values)}
+        initialValues={{ 
+          email: '',
+          password: '',
+          name: ''
+        }}
+        validationSchema = { RegistrationSchema } 
+        onSubmit={values => this.submit(values)}
      >
        {({
          values,
@@ -78,7 +73,7 @@ class Register extends Component {
               <input type="submit" value="Register" className="btn btn-primary" />
             </div>
             <div className="row justify-content-center mt-4">
-              {this.props.registerError.flag && <p>{this.props.registerError.message}</p>}
+              {this.props.registerError.hasError && <p>{this.props.registerError.message}</p>}
             </div>
           </form>
         </div>

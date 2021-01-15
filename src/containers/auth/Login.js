@@ -7,14 +7,6 @@ import { LoginSchema } from '../../validations/login';
 
 class Login extends Component {
   
-  constructor(props) {
-    super(props)
-    this.initialValues = { 
-      email: '',
-      password: ''
-    }
-  }
-
   submit = values => {
     this.props.logIn(values);
   };
@@ -22,9 +14,12 @@ class Login extends Component {
   render() {
     return (
       <Formik
-       initialValues={ this.initialValues }
-       validationSchema = { LoginSchema } 
-       onSubmit={values => this.submit(values)}
+        initialValues={{ 
+          email: '',
+          password: ''
+        }}
+        validationSchema = { LoginSchema } 
+        onSubmit={values => this.submit(values)}
      >
        {({
          values,
@@ -64,7 +59,7 @@ class Login extends Component {
               <input type="submit" value="Log in" className="btn btn-primary" />
             </div>
             <div className="row justify-content-center mt-4">
-              {this.props.loginError.flag && <p>{this.props.loginError.message}</p>}
+              {this.props.loginError.hasError && <p>{this.props.loginError.message}</p>}
             </div>
           </form>
         </div>

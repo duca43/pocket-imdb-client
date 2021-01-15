@@ -1,9 +1,12 @@
 import { LOGIN_ERROR, REGISTER_ERROR } from '../actions/ActionTypes';
 
 const initialState = {
-  loginError: false,
+  loginError: {
+    hasError: false,
+    message: ''
+  },
   registerError: {
-    flag: false,
+    hasError: false,
     message: ''
   }
 };
