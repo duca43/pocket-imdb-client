@@ -1,9 +1,9 @@
 import ApiService from './ApiService';
 
 const ENDPOINTS = {
-  LOGIN: '/login/',
-  REGISTER: '/users/',
-  GET_USER_DATA: '/users/me'
+  LOGIN: '/api/login/',
+  REGISTER: '/api/users/',
+  GET_USER_DATA: '/api/users/me'
 };
 
 class AuthService extends ApiService {

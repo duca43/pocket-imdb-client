@@ -6,6 +6,7 @@ const ENDPOINTS = {
 
 class MovieService extends ApiService {
   getMovies = () => {
+    this.api.removeHeaders(['Authorization'])
     return this.apiClient.get(ENDPOINTS.MOVIES);
   };
 }
