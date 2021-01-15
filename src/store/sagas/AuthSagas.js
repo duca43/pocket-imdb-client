@@ -23,6 +23,8 @@ export function* userRegister({ payload }) {
     yield put(push('/login'));
     yield put(go());
   } catch (error) {
-    yield put(registerError(true));
+    const errorData = error.response.data;
+    const message = errorData[Object.keys(errorData)[0]];
+    yield put(registerError({flag: true, message: message}));
   }
 }
