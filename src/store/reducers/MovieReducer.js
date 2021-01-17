@@ -1,12 +1,14 @@
 import { SET_MOVIES } from '../actions/ActionTypes';
 
 const initialState = {
-  all: []
+  movies: {
+    page: 1
+  }
 };
 const movieReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_MOVIES:
-      return { ...state, all: action.payload };
+      return { ...state, movies: action.payload };
     default:
       return state;
   }
