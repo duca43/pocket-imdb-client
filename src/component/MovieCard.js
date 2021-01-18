@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/css/movies/movie_card.css'
-import { MOVIE_GENRES } from '../util/movies'
+import { MOVIE_GENRES } from '../constants/movies'
 
 const MovieCard = ({ movie }) => {
   return (
