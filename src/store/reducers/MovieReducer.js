@@ -2,7 +2,11 @@ import { SET_MOVIES } from '../actions/ActionTypes';
 
 const initialState = {
   movies: {
-    page: 1
+    total: 0,
+    total_pages: 1,
+    page: 1,
+    page_size: 10,
+    results: []
   }
 };
 const movieReducer = (state = initialState, action) => {
