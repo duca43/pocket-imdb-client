@@ -6,12 +6,13 @@ const initialState = {
     total_pages: 1,
     page: 1,
     results: []
-  }
+  },
+  searchBy: ''
 };
 const movieReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_MOVIES:
-      return { ...state, movies: action.payload };
+      return { ...state, movies: action.payload.movies, searchBy: action.payload.searchBy };
     default:
       return state;
   }
