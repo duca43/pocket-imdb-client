@@ -5,7 +5,6 @@ const initialState = {
     total: 0,
     total_pages: 1,
     page: 1,
-    page_size: 10,
     results: []
   }
 };
