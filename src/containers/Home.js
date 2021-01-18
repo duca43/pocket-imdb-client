@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
 import { getMovies } from '../store/actions/MovieActions';
-import MovieCard from '../component/MovieCard';
-import Pagination from '../component/Pagination';
+import MovieList from '../component/movies/MovieList';
 
 class Home extends Component {
 
@@ -20,13 +18,7 @@ class Home extends Component {
     return (
       <div>
         <h1 className="text-center mt-4">Welcome to Pocket IMDb</h1>
-        <h3 className="text-center mt-3">Movies</h3>
-        <Pagination currentPage={ this.props.movies.page } 
-                    totalPages={ this.props.movies.total_pages }
-                    paginate={ this.retrieveMovies } />
-        <div className="row">
-          { this.props.movies.results.map(movie => <MovieCard key={movie.id} movie={movie} />) }
-        </div>
+        <MovieList movies={ this.props.movies } retrieveMovies={ this.retrieveMovies } />
       </div>
     );
   }
