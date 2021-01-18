@@ -1,4 +1,4 @@
-import { SET_MOVIES } from '../actions/ActionTypes';
+import { SET_MOVIES, SET_MOVIE } from '../actions/ActionTypes';
 
 const initialState = {
   movies: {
@@ -6,12 +6,15 @@ const initialState = {
     total_pages: 1,
     page: 1,
     results: []
-  }
+  },
+  currentMovie: {}
 };
 const movieReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_MOVIES:
       return { ...state, movies: action.payload };
+    case SET_MOVIE:
+      return { ...state, currentMovie: action.payload };
     default:
       return state;
   }
