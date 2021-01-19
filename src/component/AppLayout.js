@@ -1,13 +1,10 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
-import Login from '../containers/auth/Login';
-import Register from '../containers/auth/Register';
-import Home from '../containers/Home';
 import { authUser } from '../store/actions/AuthActions';
-import MoviePage from '../containers/movies/MoviePage';
+import NotFound from '../containers/NotFound';
+import { AUTHORIZED_ROUTES, NON_AUTHORIZED_ROUTES } from '../util/routes'
 
 class AppLayout extends React.Component {
   componentDidUpdate(prevProps) {
@@ -21,17 +18,18 @@ class AppLayout extends React.Component {
   }
 
   render() {
-    return this.props.user ? (
-      <div>
-        <Route exact path="/home" component={Home} />
-        <Route exact path="/movie/:id" component={MoviePage} />
-      </div>
-    ) : (
-      <div>
-        <Route exact path="/register" component={Register} />
-        <Route exact path="/login" component={Login} />
-      </div>
-    );
+    
+    const routes = this.props.user ? AUTHORIZED_ROUTES : NON_AUTHORIZED_ROUTES;
+    
+    return ( 
+      <Switch>
+          {routes.map(route => 
+            <Route path={route.path} component={route.component} />
+          )}
+          <Route exact path="/not-found" component={NotFound} />
+          <Redirect to="/not-found" />
+      </Switch>
+    )
   }
 }
 

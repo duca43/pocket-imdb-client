@@ -8,7 +8,7 @@ import AppLayout from './component/AppLayout';
 import store from './store/Store';
 import './styles/css/bootstrap.min.css';
 
-export const history = createHistory();
+const history = createHistory();
 
 class App extends Component {
   render() {

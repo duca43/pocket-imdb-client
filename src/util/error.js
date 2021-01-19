@@ -3,7 +3,6 @@ export const extractErrorMessage = error => {
         const errorData = error.response.data;
         const keys = Object.keys(errorData);
         return keys.length > 0 ? errorData[Object.keys(errorData)[0]] : null;
-    } else {
-        return null;
     }
+    return null;
 }

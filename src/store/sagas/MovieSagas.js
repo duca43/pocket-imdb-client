@@ -2,8 +2,7 @@ import { call, put } from 'redux-saga/effects';
 
 import { movieService } from '../../services/MovieService';
 import { setMovies, setMovie } from '../actions/MovieActions';
-import { notFoundError } from '../actions/ErrorActions';
-import { extractErrorMessage } from '../../util/error'
+import { push, go } from 'connected-react-router';
 
 export function* moviesGet({ payload }) {
   try {
@@ -21,6 +20,7 @@ export function* getMovie({ payload }) {
 
     yield put(setMovie(data));
   } catch (error) {
-    yield put(notFoundError({hasError: true, message: extractErrorMessage(error)}));
+    yield put(push('/not-found'));
+    yield put(go());
   }
 }
