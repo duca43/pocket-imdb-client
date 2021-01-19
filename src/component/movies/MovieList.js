@@ -3,14 +3,9 @@ import { connect } from 'react-redux';
 import { getMovies } from '../../store/actions/MovieActions';
 import Pagination from '../Pagination'
 import MovieCard from '../MovieCard'
-import { debounce } from 'lodash'
+import debounce from 'lodash/debounce'
 
 class MovieList extends Component {
-
-    constructor(props) {
-        super(props);
-        this.retrieveMoviesBySearch = debounce(this.retrieveMoviesBySearch, 750);
-    }
 
     componentDidMount() {
         this.retrieveMoviesByPage(this.props.movies.page);
@@ -20,12 +15,12 @@ class MovieList extends Component {
         this.props.getMovies({page: page, search: this.props.searchBy});
     }
 
-    retrieveMoviesBySearch = (searchBy) => {
+    retrieveMoviesBySearch = debounce((searchBy) => {
         const searchByTrimmed = searchBy.trim().replace(/  +/g, ' ');
         if (searchByTrimmed !== this.props.searchBy) {
             this.props.getMovies({page: 1, search: searchBy});
         }
-    }
+    }, 750);
 
     render() {
         return (
