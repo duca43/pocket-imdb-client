@@ -3,7 +3,7 @@ import { range } from 'lodash';
 export const getPaginationPages = (currentPage, totalPages) => {
   if (totalPages < 3) {
     const pages = [];
-    for (let i in range(1, totalPages + 1)) {
+    for (let i of range(1, totalPages + 1)) {
       pages.push(i);
     }
     return pages;
