@@ -10,10 +10,9 @@ class MovieList extends Component {
     componentDidMount() {
         this.retrieveMoviesByPage(this.props.movies.page);
     }
-
+  
     retrieveMoviesByPage = (page) => {
         this.props.getMovies({page: page, search: this.props.searchBy});
-    }
 
     retrieveMoviesBySearch = debounce((searchBy) => {
         const searchByTrimmed = searchBy.trim().replace(/  +/g, ' ');
