@@ -3,9 +3,14 @@ import { connect } from 'react-redux';
 import { getMovies } from '../../store/actions/MovieActions';
 import Pagination from '../Pagination'
 import MovieCard from '../MovieCard'
-import { DebounceInput } from 'react-debounce-input';
+import { debounce } from 'lodash'
 
 class MovieList extends Component {
+
+    constructor(props) {
+        super(props);
+        this.retrieveMoviesBySearch = debounce(this.retrieveMoviesBySearch, 750);
+    }
 
     componentDidMount() {
         this.retrieveMoviesByPage(this.props.movies.page);
@@ -16,7 +21,10 @@ class MovieList extends Component {
     }
 
     retrieveMoviesBySearch = (searchBy) => {
-        this.props.getMovies({page: 1, search: searchBy});
+        const searchByTrimmed = searchBy.trim().replace(/  +/g, ' ');
+        if (searchByTrimmed !== this.props.searchBy) {
+            this.props.getMovies({page: 1, search: searchBy});
+        }
     }
 
     render() {
@@ -24,10 +32,9 @@ class MovieList extends Component {
             <div>
             <h3 className="text-center mt-3">Movies</h3>
                 <div className="row justify-content-center mt-5">
-                    <DebounceInput
+                    <input
                         className="form-control col-4"
                         placeholder="Search..."
-                        debounceTimeout={ 750 }
                         onChange={event => this.retrieveMoviesBySearch(event.target.value)} />
                 </div>
                     <Pagination currentPage={ this.props.movies.page } 
