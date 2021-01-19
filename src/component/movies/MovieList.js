@@ -11,7 +11,6 @@ class MovieList extends Component {
     }
     
     retrieveMovies = page => {
-        console.log(this.props)
         this.props.getMovies(page);
     }
 

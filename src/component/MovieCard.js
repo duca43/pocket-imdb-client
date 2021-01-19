@@ -1,10 +1,11 @@
 import React from 'react';
 import '../styles/css/movies/movie_card.css'
 import { MOVIE_GENRES } from '../constants/movies'
+import { withRouter } from 'react-router-dom';
 
-const MovieCard = ({ movie }) => {
-  return (
-    <div className="card my-3 mx-5 col-3">
+const MovieCard = ({ movie, history }) => (
+  <button className="btn my-3 mx-5 col-3" onClick={ () => history.push('/movie/' + movie.id) }>
+    <div className="card">
       <div className="embed-responsive embed-responsive-4by3">
         <img className="card-img-top embed-responsive-item" src={ movie.cover_image_url } alt="Not available :(" />
       </div>
@@ -14,7 +15,7 @@ const MovieCard = ({ movie }) => {
         <p className="card-text">{ movie.description }</p>
       </div>
     </div>
-  );
-};
+  </button>
+);
 
-export default MovieCard;
+export default withRouter(MovieCard);

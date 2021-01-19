@@ -1,8 +1,10 @@
 import { call, put } from 'redux-saga/effects';
 import { push, go } from 'connected-react-router';
 
-import { authUser, loginError, registerError } from '../actions/AuthActions';
+import { authUser } from '../actions/AuthActions';
+import { loginError, registerError} from '../actions/ErrorActions'
 import AuthService from '../../services/AuthService';
+import { extractErrorMessage } from '../../util/error'
 
 export function* userLogin({ payload }) {
   try {
@@ -25,9 +27,4 @@ export function* userRegister({ payload }) {
   } catch (error) {
     yield put(registerError({hasError: true, message: extractErrorMessage(error)}));
   }
-}
-
-function extractErrorMessage(error) {
-  const errorData = error.response.data;
-  return errorData[Object.keys(errorData)[0]];
 }
