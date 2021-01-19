@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { authUser } from '../store/actions/AuthActions';
 import NotFound from '../containers/NotFound';
-import { AUTHORIZED_ROUTES, NON_AUTHORIZED_ROUTES } from '../util/routes'
+import { AUTHORIZED_ROUTES, NON_AUTHORIZED_ROUTES } from '../constants/routes'
 
 class AppLayout extends React.Component {
   componentDidUpdate(prevProps) {
