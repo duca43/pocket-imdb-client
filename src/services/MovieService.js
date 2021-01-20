@@ -12,6 +12,10 @@ class MovieService extends ApiService {
   getMovie = (id) => {
     return this.apiClient.get(ENDPOINTS.MOVIES + id);
   };
+
+  incrementVisits = (id) => {
+    return this.apiClient.patch(ENDPOINTS.MOVIES + id + '/visits/');
+  };
 }
 
 export const movieService = new MovieService();

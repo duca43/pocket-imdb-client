@@ -1,4 +1,4 @@
-import { GET_MOVIES, SET_MOVIES, GET_MOVIE, SET_MOVIE } from './ActionTypes';
+import { GET_MOVIES, SET_MOVIES, GET_MOVIE, SET_MOVIE, INCREMENT_VISITS, UPDATE_MOVIE_VISITS } from './ActionTypes';
 
 export const getMovies = (payload) => {
   return {
@@ -24,6 +24,20 @@ export const getMovie = (payload) => {
 export const setMovie = payload => {
   return {
     type: SET_MOVIE,
+    payload
+  };
+};
+
+export const incrementVisits = payload => {
+  return {
+    type: INCREMENT_VISITS,
+    payload
+  };
+};
+
+export const updateMovieVisits = payload => {
+  return {
+    type: UPDATE_MOVIE_VISITS,
     payload
   };
 };

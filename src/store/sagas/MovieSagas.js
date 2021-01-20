@@ -1,7 +1,7 @@
 import { call, put } from 'redux-saga/effects';
 
 import { movieService } from '../../services/MovieService';
-import { setMovies, setMovie } from '../actions/MovieActions';
+import { setMovies, setMovie, updateMovieVisits } from '../actions/MovieActions';
 import { push, go } from 'connected-react-router';
 
 export function* moviesGet({ payload }) {
@@ -19,6 +19,17 @@ export function* getMovie({ payload }) {
     const { data } = yield call(movieService.getMovie, payload);
 
     yield put(setMovie(data));
+  } catch (error) {
+    yield put(push('/not-found'));
+    yield put(go());
+  }
+}
+
+export function* incrementVisits({ payload }) {
+  try {
+    yield call(movieService.incrementVisits, payload);
+
+    yield put(updateMovieVisits(payload));
   } catch (error) {
     yield put(push('/not-found'));
     yield put(go());

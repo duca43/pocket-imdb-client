@@ -13,6 +13,7 @@ const MovieCard = ({ movie, history }) => (
         <h4 className="card-title">{ movie.title }</h4>
         <h6 className="card-subtitle mb-3 text-muted">{ MOVIE_GENRES[movie.genre] }</h6>
         <p className="card-text">{ movie.description }</p>
+        <p className="card-text text-left text-muted">Visits: { movie.visits }</p>
       </div>
     </div>
   </button>

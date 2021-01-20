@@ -1,4 +1,4 @@
-import { SET_MOVIES, SET_MOVIE } from '../actions/ActionTypes';
+import { SET_MOVIES, SET_MOVIE, UPDATE_MOVIE_VISITS } from '../actions/ActionTypes';
 
 const initialState = {
   movies: {
@@ -16,6 +16,11 @@ const movieReducer = (state = initialState, action) => {
       return { ...state, movies: action.payload.movies, searchBy: action.payload.searchBy };
     case SET_MOVIE:
       return { ...state, currentMovie: action.payload };
+    case UPDATE_MOVIE_VISITS: {
+        const tmpCurrentMovie = {...state.currentMovie};
+        tmpCurrentMovie.visits++;
+        return { ...state, currentMovie: tmpCurrentMovie };
+    }
     default:
       return state;
   }
