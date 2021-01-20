@@ -8,12 +8,13 @@ const initialState = {
     results: []
   },
   currentMovie: {},
-  searchBy: ''
+  searchBy: '',
+  genreFilter: ''
 };
 const movieReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_MOVIES:
-      return { ...state, movies: action.payload.movies, searchBy: action.payload.searchBy };
+      return { ...state, movies: action.payload.movies, searchBy: action.payload.searchBy, genreFilter: action.payload.genreFilter };
     case SET_MOVIE:
       return { ...state, currentMovie: action.payload };
     default:

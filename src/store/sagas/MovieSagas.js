@@ -8,7 +8,7 @@ export function* moviesGet({ payload }) {
   try {
     const { data } = yield call(movieService.getMovies, payload);
 
-    yield put(setMovies({movies: data, searchBy: payload.search}));
+    yield put(setMovies({movies: data, searchBy: payload.search, genreFilter: payload.genre}));
   } catch (error) {
     console.log({ error });
   }
