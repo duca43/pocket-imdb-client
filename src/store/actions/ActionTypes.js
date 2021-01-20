@@ -10,3 +10,6 @@ export const GET_MOVIES = 'GET_MOVIES';
 export const SET_MOVIES = 'SET_MOVIES';
 export const GET_MOVIE = 'GET_MOVIE';
 export const SET_MOVIE = 'SET_MOVIE';
+
+export const ADD_FEEDBACK = 'ADD_FEEDBACK';
+export const UPDATE_MOVIE_FEEDBACKS = 'UPDATE_MOVIE_FEEDBACKS';

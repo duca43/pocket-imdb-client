@@ -1,0 +1,8 @@
+.btn:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.bigger-icon {
+    font-size: 150% !important;
+}

@@ -25,18 +25,23 @@ class MovieList extends Component {
     render() {
         return (
             <div>
-            <h3 className="text-center mt-3">Movies</h3>
+                <h3 className="text-center mt-3">Movies</h3>
                 <div className="row justify-content-center mt-5">
                     <input
                         className="form-control col-4"
                         placeholder="Search..."
+                        defaultValue={ this.props.searchBy }
                         onChange={event => this.retrieveMoviesBySearch(event.target.value)} />
                 </div>
                     <Pagination currentPage={ this.props.movies.page } 
                             totalPages={ this.props.movies.total_pages }
                             paginate={ this.retrieveMoviesByPage } />
                 <div className="row">
-                { this.props.movies.results.map(movie => <MovieCard key={movie.id} movie={movie} />) }
+                    {this.props.movies.results.map(movie => 
+                        <div className="my-3 mx-5 col-3" key={movie.id}>
+                            <MovieCard movie={movie} />
+                        </div>
+                    )}                    
                 </div>
             </div>
         );

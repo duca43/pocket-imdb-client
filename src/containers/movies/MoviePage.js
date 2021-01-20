@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { getMovie } from '../../store/actions/MovieActions';
 import { MOVIE_GENRES } from '../../constants/movies'
+import MovieFeedback from '../../component/movies/MovieFeedback';
 
 class MoviePage extends Component {
   
@@ -23,6 +24,9 @@ class MoviePage extends Component {
               <p className="card-title display-4">{ this.props.movie.title }</p>
               <h2 className="card-subtitle mb-3 text-muted">{ MOVIE_GENRES[this.props.movie.genre] }</h2>
               <p className="card-text">{ this.props.movie.description }</p>
+              <div className="w-25 mt-5">
+                <MovieFeedback movie={ this.props.movie } />
+              </div>
           </div>
         </div>
       </div>
