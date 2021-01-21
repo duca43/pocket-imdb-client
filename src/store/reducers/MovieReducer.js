@@ -17,9 +17,16 @@ const movieReducer = (state = initialState, action) => {
     case SET_MOVIE:
       return { ...state, currentMovie: action.payload };
     case UPDATE_MOVIE_VISITS: {
-        const tmpCurrentMovie = {...state.currentMovie};
-        tmpCurrentMovie.visits++;
-        return { ...state, currentMovie: tmpCurrentMovie };
+      let currentMovieUpdate = {};
+
+      if (state.currentMovie.visits) {
+        currentMovieUpdate = {
+          ...state.currentMovie,
+          visits: state.currentMovie + 1
+        }
+      }
+
+      return { ...state, currentMovie: {...state.currentMovie, ...currentMovieUpdate } };
     }
     default:
       return state;
