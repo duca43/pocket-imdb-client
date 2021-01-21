@@ -11,5 +11,9 @@ export const SET_MOVIES = 'SET_MOVIES';
 export const GET_MOVIE = 'GET_MOVIE';
 export const SET_MOVIE = 'SET_MOVIE';
 
-export const ADD_FEEDBACK = 'ADD_FEEDBACK';
-export const UPDATE_MOVIE_FEEDBACKS = 'UPDATE_MOVIE_FEEDBACKS';
+export const ADD_LIKE = 'ADD_LIKES';
+export const UPDATE_MOVIE_LIKES = 'UPDATE_MOVIE_LIKES';
+export const REMOVE_LIKE = 'REMOVE_LIKE';
+export const REMOVE_MOVIE_LIKE = 'REMOVE_MOVIE_LIKE';
+export const FLIP_LIKE = 'FLIP_LIKE';
+export const FLIP_MOVIE_LIKE = 'FLIP_MOVIE_LIKE';

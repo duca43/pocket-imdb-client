@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/css/movies/movie_card.css'
 import { MOVIE_GENRES } from '../constants/movies'
 import { withRouter } from 'react-router-dom';
-import MovieFeedback from './movies/MovieFeedback';
+import MovieLikes from './movies/MovieLikes';
 
 const MovieCard = ({ movie, history }) => (
   <div className="card">
@@ -18,7 +18,7 @@ const MovieCard = ({ movie, history }) => (
     </button>
     <hr />
     <div className="card-body">
-      <MovieFeedback movie={ movie } />
+      <MovieLikes movie={ movie } />
     </div>
   </div>
 );
