@@ -24,7 +24,7 @@ class AppLayout extends React.Component {
     return ( 
       <Switch>
           {routes.map(route => 
-            <Route path={route.path} component={route.component} />
+            <Route key={ route.path } path={ route.path } component={ route.component } />
           )}
           <Route exact path="/not-found" component={NotFound} />
           <Redirect to="/not-found" />

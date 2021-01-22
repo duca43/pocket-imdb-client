@@ -30,7 +30,7 @@ class MovieList extends Component {
     render() {
         return (
             <div>
-            <h3 className="text-center mt-3">Movies</h3>
+                <h3 className="text-center mt-3">Movies</h3>
                 <div className="container-fluid d-flex justify-content-between mt-5">
                     <div className="form-group col-2">
                         <select id="genreFilter" className="form-control" onChange={event => this.retrieveMoviesByFilter(event.target.value)}>
@@ -43,13 +43,18 @@ class MovieList extends Component {
                     <input
                         className="form-control col-5"
                         placeholder="Search..."
+                        defaultValue={ this.props.searchBy }
                         onChange={event => this.retrieveMoviesBySearch(event.target.value)} />
                     <Pagination currentPage={ this.props.movies.page } 
                         totalPages={ this.props.movies.total_pages }
                         paginate={ this.retrieveMoviesByPage } />
                 </div>
                 <div className="row">
-                { this.props.movies.results.map(movie => <MovieCard key={movie.id} movie={movie} />) }
+                    {this.props.movies.results.map(movie => 
+                        <div className="my-3 mx-5 col-3" key={movie.id}>
+                            <MovieCard movie={movie} />
+                        </div>
+                    )}                    
                 </div>
             </div>
         );

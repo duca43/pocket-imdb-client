@@ -1,4 +1,15 @@
-import { GET_MOVIES, SET_MOVIES, GET_MOVIE, SET_MOVIE, INCREMENT_VISITS, UPDATE_MOVIE_VISITS } from './ActionTypes';
+import { 
+  GET_MOVIES, 
+  SET_MOVIES, 
+  GET_MOVIE, 
+  SET_MOVIE, 
+  ADD_LIKE, 
+  UPDATE_MOVIE_LIKES, 
+  REMOVE_LIKE, 
+  REMOVE_MOVIE_LIKE,
+  INCREMENT_VISITS,
+  UPDATE_MOVIE_VISITS
+} from './ActionTypes';
 
 export const getMovies = (payload) => {
   return {
@@ -28,6 +39,13 @@ export const setMovie = payload => {
   };
 };
 
+export const addOrUpdateLike = (payload) => {
+  return {
+    type: ADD_LIKE,
+    payload
+  }
+};
+
 export const incrementVisits = payload => {
   return {
     type: INCREMENT_VISITS,
@@ -40,4 +58,25 @@ export const updateMovieVisits = payload => {
     type: UPDATE_MOVIE_VISITS,
     payload
   };
+};
+
+export const updateMovieLikes = (payload) => {
+  return {
+    type: UPDATE_MOVIE_LIKES,
+    payload
+  };
+};
+
+export const removeLike = (payload) => {
+  return {
+    type: REMOVE_LIKE,
+    payload
+  };
+};
+
+export const removeMovieLike = (payload) => {
+  return {
+    type: REMOVE_MOVIE_LIKE,
+    payload
+  }
 };

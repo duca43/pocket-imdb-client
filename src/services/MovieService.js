@@ -13,6 +13,14 @@ class MovieService extends ApiService {
     return this.apiClient.get(ENDPOINTS.MOVIES + id);
   };
 
+  addOrUpdateLike = (payload) => {
+    return this.apiClient.post(ENDPOINTS.MOVIES + payload.movie + '/like/', {like: payload.like});
+  };
+
+  removeLike = (id) => {
+    return this.apiClient.delete(ENDPOINTS.MOVIES + id + '/remove-like/');
+  };
+  
   incrementVisits = (id) => {
     return this.apiClient.patch(ENDPOINTS.MOVIES + id + '/visits/');
   };
