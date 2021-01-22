@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../../styles/css/movies/movie_card.css'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { getMovie } from '../../store/actions/MovieActions';
+import { getMovie, incrementVisits } from '../../store/actions/MovieActions';
 import { MOVIE_GENRES } from '../../constants/movies'
 import MovieLikes from '../../component/movies/MovieLikes';
 
@@ -10,6 +10,7 @@ class MoviePage extends Component {
   
   componentDidMount() {
     this.props.getMovie(this.props.match.params.id);
+    this.props.incrementVisits(this.props.match.params.id);
   }
 
   render() {
@@ -24,6 +25,7 @@ class MoviePage extends Component {
               <p className="card-title display-4">{ this.props.movie.title }</p>
               <h2 className="card-subtitle mb-3 text-muted">{ MOVIE_GENRES[this.props.movie.genre] }</h2>
               <p className="card-text">{ this.props.movie.description }</p>
+              <p className="card-text text-muted">Visits: { this.props.movie.visits }</p>
               <div className="w-25 mt-5">
                 <MovieLikes movie={ this.props.movie } />
               </div>
@@ -41,7 +43,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  getMovie
+  getMovie,
+  incrementVisits
 };
 
 export default withRouter(

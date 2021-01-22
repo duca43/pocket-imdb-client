@@ -6,7 +6,7 @@ const ENDPOINTS = {
 
 class MovieService extends ApiService {
   getMovies = (payload) => {
-    return this.apiClient.get(ENDPOINTS.MOVIES + '?page=' + payload.page + "&search=" + payload.search);
+    return this.apiClient.get(ENDPOINTS.MOVIES + '?page=' + payload.page + "&search=" + payload.search + "&genre=" + payload.genre);
   };
 
   getMovie = (id) => {
@@ -14,11 +14,15 @@ class MovieService extends ApiService {
   };
 
   addOrUpdateLike = (payload) => {
-    return this.apiClient.post(ENDPOINTS.MOVIES + payload.movie + '/likes/', {like: payload.like});
+    return this.apiClient.post(ENDPOINTS.MOVIES + payload.movie + '/like/', {like: payload.like});
   };
 
   removeLike = (id) => {
-    return this.apiClient.delete(ENDPOINTS.MOVIES + id + '/likes/');
+    return this.apiClient.delete(ENDPOINTS.MOVIES + id + '/remove-like/');
+  };
+  
+  incrementVisits = (id) => {
+    return this.apiClient.patch(ENDPOINTS.MOVIES + id + '/visits/');
   };
 }
 

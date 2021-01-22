@@ -7,7 +7,7 @@ class MovieLikes extends Component {
   
     performLike = (like) => {
         if (this.props.movie.user_liked_or_disliked === like) {
-            this.props.removeLike({movie: this.props.movie.id, like: like});
+            this.props.removeLike(this.props.movie.id);
         } else {
             this.props.addOrUpdateLike({movie: this.props.movie.id, like: like});
         }

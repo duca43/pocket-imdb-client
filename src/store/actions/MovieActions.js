@@ -6,7 +6,9 @@ import {
   ADD_LIKE, 
   UPDATE_MOVIE_LIKES, 
   REMOVE_LIKE, 
-  REMOVE_MOVIE_LIKE
+  REMOVE_MOVIE_LIKE,
+  INCREMENT_VISITS,
+  UPDATE_MOVIE_VISITS
 } from './ActionTypes';
 
 export const getMovies = (payload) => {
@@ -41,6 +43,20 @@ export const addOrUpdateLike = (payload) => {
   return {
     type: ADD_LIKE,
     payload
+  }
+};
+
+export const incrementVisits = payload => {
+  return {
+    type: INCREMENT_VISITS,
+    payload
+  };
+};
+
+export const updateMovieVisits = payload => {
+  return {
+    type: UPDATE_MOVIE_VISITS,
+    payload
   };
 };
 
@@ -62,5 +78,5 @@ export const removeMovieLike = (payload) => {
   return {
     type: REMOVE_MOVIE_LIKE,
     payload
-  };
+  }
 };

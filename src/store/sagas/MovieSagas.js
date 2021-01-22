@@ -1,14 +1,14 @@
 import { call, put } from 'redux-saga/effects';
 
 import { movieService } from '../../services/MovieService';
-import { setMovies, setMovie, updateMovieLikes, removeMovieLike } from '../actions/MovieActions';
+import { setMovies, setMovie, updateMovieLikes, removeMovieLike, updateMovieVisits } from '../actions/MovieActions';
 import { push, go } from 'connected-react-router';
 
 export function* moviesGet({ payload }) {
   try {
     const { data } = yield call(movieService.getMovies, payload);
 
-    yield put(setMovies({movies: data, searchBy: payload.search}));
+    yield put(setMovies({movies: data, searchBy: payload.search, genreFilter: payload.genre}));
   } catch (error) {
     console.log({ error });
   }
@@ -36,9 +36,20 @@ export function* addOrUpdateLike({ payload }) {
 
 export function* removeLike({ payload }) {
   try {
-    yield call(movieService.removeLike, payload.movie);
+    yield call(movieService.removeLike, payload);
     yield put(removeMovieLike(payload));
   } catch (error) {
     console.log({ error });
+  }
+}
+
+export function* incrementVisits({ payload }) {
+  try {
+    yield call(movieService.incrementVisits, payload);
+
+    yield put(updateMovieVisits(payload));
+  } catch (error) {
+    yield put(push('/not-found'));
+    yield put(go());
   }
 }
