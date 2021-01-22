@@ -1,7 +1,7 @@
 import { call, put } from 'redux-saga/effects';
 
 import { movieService } from '../../services/MovieService';
-import { setMovies, setMovie, updateMovieLikes, removeMovieLike, flipMovieLike } from '../actions/MovieActions';
+import { setMovies, setMovie, updateMovieLikes, removeMovieLike } from '../actions/MovieActions';
 import { push, go } from 'connected-react-router';
 
 export function* moviesGet({ payload }) {
@@ -25,9 +25,9 @@ export function* getMovie({ payload }) {
   }
 }
 
-export function* addLike({ payload }) {
+export function* addOrUpdateLike({ payload }) {
   try {
-    yield call(movieService.addLike, payload);
+    yield call(movieService.addOrUpdateLike, payload);
     yield put(updateMovieLikes(payload));
   } catch (error) {
     console.log({ error });
@@ -38,15 +38,6 @@ export function* removeLike({ payload }) {
   try {
     yield call(movieService.removeLike, payload.movie);
     yield put(removeMovieLike(payload));
-  } catch (error) {
-    console.log({ error });
-  }
-}
-
-export function* flipLike({ payload }) {
-  try {
-    yield call(movieService.flipLike, payload.movie);
-    yield put(flipMovieLike(payload));
   } catch (error) {
     console.log({ error });
   }

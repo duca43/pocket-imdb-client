@@ -15,5 +15,3 @@ export const ADD_LIKE = 'ADD_LIKES';
 export const UPDATE_MOVIE_LIKES = 'UPDATE_MOVIE_LIKES';
 export const REMOVE_LIKE = 'REMOVE_LIKE';
 export const REMOVE_MOVIE_LIKE = 'REMOVE_MOVIE_LIKE';
-export const FLIP_LIKE = 'FLIP_LIKE';
-export const FLIP_MOVIE_LIKE = 'FLIP_MOVIE_LIKE';

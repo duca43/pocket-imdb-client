@@ -6,9 +6,7 @@ import {
   ADD_LIKE, 
   UPDATE_MOVIE_LIKES, 
   REMOVE_LIKE, 
-  REMOVE_MOVIE_LIKE,
-  FLIP_LIKE,
-  FLIP_MOVIE_LIKE
+  REMOVE_MOVIE_LIKE
 } from './ActionTypes';
 
 export const getMovies = (payload) => {
@@ -39,7 +37,7 @@ export const setMovie = payload => {
   };
 };
 
-export const addLike = (payload) => {
+export const addOrUpdateLike = (payload) => {
   return {
     type: ADD_LIKE,
     payload
@@ -63,20 +61,6 @@ export const removeLike = (payload) => {
 export const removeMovieLike = (payload) => {
   return {
     type: REMOVE_MOVIE_LIKE,
-    payload
-  };
-};
-
-export const flipLike = (payload) => {
-  return {
-    type: FLIP_LIKE,
-    payload
-  };
-};
-
-export const flipMovieLike = (payload) => {
-  return {
-    type: FLIP_MOVIE_LIKE,
     payload
   };
 };

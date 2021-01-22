@@ -1,4 +1,4 @@
-import { SET_MOVIES, SET_MOVIE, UPDATE_MOVIE_LIKES, REMOVE_MOVIE_LIKE, FLIP_MOVIE_LIKE } from '../actions/ActionTypes';
+import { SET_MOVIES, SET_MOVIE, UPDATE_MOVIE_LIKES, REMOVE_MOVIE_LIKE } from '../actions/ActionTypes';
 
 const initialState = {
   movies: {
@@ -18,6 +18,7 @@ const movieReducer = (state = initialState, action) => {
       return { ...state, currentMovie: action.payload };
     case UPDATE_MOVIE_LIKES: {
       const likeProperty = action.payload.like === 1 ? 'likes' : 'dislikes';
+      const otherProperty = action.payload.like === -1 ? 'likes' : 'dislikes';
       
       let currentMovieUpdate = {}
 
@@ -25,6 +26,7 @@ const movieReducer = (state = initialState, action) => {
         currentMovieUpdate = {
           ...state.currentMovie,
           [likeProperty]: state.currentMovie[likeProperty] + 1,
+          [otherProperty]: state.currentMovie['user_liked_or_disliked'] === 0 ? state.currentMovie[otherProperty] : state.currentMovie[otherProperty] - 1,
           user_liked_or_disliked: action.payload.like
         }
       }
@@ -40,6 +42,7 @@ const movieReducer = (state = initialState, action) => {
             return {
               ...movie,
               [likeProperty]: movie[likeProperty] + 1,
+              [otherProperty]: movie['user_liked_or_disliked'] === 0 ? movie[otherProperty] : movie[otherProperty] - 1,
               user_liked_or_disliked: action.payload.like
             }
           })
@@ -72,40 +75,6 @@ const movieReducer = (state = initialState, action) => {
               ...movie,
               [likeProperty]: movie[likeProperty] - 1,
               user_liked_or_disliked: 0
-            }
-          })
-        },
-        currentMovie: {...state.currentMovie, ...currentMovieUpdate}
-      };
-    }
-    case FLIP_MOVIE_LIKE: {
-      const newLikeProperty = action.payload.like === 1 ? 'likes' : 'dislikes';
-      const previousLikeProperty = action.payload.like !== 1 ? 'likes' : 'dislikes';
-      
-      let currentMovieUpdate = {}
-
-      if (state.currentMovie.id === action.payload.movie) {
-        currentMovieUpdate = {
-          ...state.currentMovie,
-          [previousLikeProperty]: state.currentMovie[previousLikeProperty] - 1,
-          [newLikeProperty]: state.currentMovie[newLikeProperty] + 1,
-          user_liked_or_disliked: action.payload.like
-        }
-      }
-
-      return { 
-        ...state,
-        movies: {
-          ...state.movies,
-          results: state.movies.results.map(movie => {
-            if (movie.id !== action.payload.movie) {
-              return movie;
-            }
-            return {
-              ...movie,
-              [previousLikeProperty]: movie[previousLikeProperty] - 1,
-              [newLikeProperty]: movie[newLikeProperty] + 1,
-              user_liked_or_disliked: action.payload.like
             }
           })
         },

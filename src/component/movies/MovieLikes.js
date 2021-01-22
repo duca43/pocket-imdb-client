@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addLike, removeLike, flipLike } from '../../store/actions/MovieActions';
+import { addOrUpdateLike, removeLike } from '../../store/actions/MovieActions';
 import '../../styles/css/movies/movie_like.css'
 
 class MovieLikes extends Component {
   
     performLike = (like) => {
-        if (this.props.movie.user_liked_or_disliked === 0) {
-            this.props.addLike({movie: this.props.movie.id, like: like});
-        }
-        else if (this.props.movie.user_liked_or_disliked === like) {
+        if (this.props.movie.user_liked_or_disliked === like) {
             this.props.removeLike({movie: this.props.movie.id, like: like});
         } else {
-            this.props.flipLike({movie: this.props.movie.id, like: like});
+            this.props.addOrUpdateLike({movie: this.props.movie.id, like: like});
         }
     }
 
@@ -48,9 +45,8 @@ class MovieLikes extends Component {
 };
 
 const mapDispatchToProps = {
-    addLike,
-    removeLike,
-    flipLike
+    addOrUpdateLike,
+    removeLike
 };
 
 export default connect(null, mapDispatchToProps)(MovieLikes);
