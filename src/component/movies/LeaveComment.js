@@ -17,7 +17,10 @@ class LeaveComment extends Component {
       <Formik
         initialValues={{ comment: '' }} 
         validationSchema={ CommentSchema }
-        onSubmit={values => this.postComment(values.comment)}
+        onSubmit={(values, { resetForm }) => {
+          this.postComment(values.comment);
+          resetForm();
+        }}
       >
         {({ errors, values, handleSubmit, handleChange }) => (
         <form noValidate onSubmit={ handleSubmit }>

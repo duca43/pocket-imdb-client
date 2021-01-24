@@ -10,7 +10,9 @@ import {
   INCREMENT_VISITS,
   UPDATE_MOVIE_VISITS,
   POST_COMMENT,
-  UPDATE_MOVIE_COMMENTS
+  UPDATE_MOVIE_COMMENTS,
+  GET_COMMENTS,
+  PUT_MOVIE_COMMENT
 } from './ActionTypes';
 
 export const getMovies = (payload) => {
@@ -86,6 +88,20 @@ export const removeMovieLike = (payload) => {
 export const postComment = (payload) => {
   return {
     type: POST_COMMENT,
+    payload
+  };
+};
+
+export const putMovieComment = (payload) => {
+  return {
+    type: PUT_MOVIE_COMMENT,
+    payload
+  }
+};
+
+export const getComments = (payload) => {
+  return {
+    type: GET_COMMENTS,
     payload
   };
 };

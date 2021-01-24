@@ -26,7 +26,11 @@ class MovieService extends ApiService {
   };
 
   postComment = (payload) => {
-    return this.apiClient.post(ENDPOINTS.MOVIES + payload.movie + '/comments/', {comment: payload.comment});
+    return this.apiClient.post(ENDPOINTS.MOVIES + payload.movie + '/post-comment/', {comment: payload.comment});
+  };
+
+  getComments = (payload) => {
+    return this.apiClient.get(ENDPOINTS.MOVIES + payload.movie + '/comments/?page=' + payload.page);
   };
 }
 

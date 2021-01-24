@@ -1,8 +1,9 @@
 import React from 'react';
+import '../../styles/css/movies/movie_card.css'
 import LeaveComment from './LeaveComment';
 import MovieCommentList from './MovieCommentList';
 
-const MovieComments = ({ movieId, comments }) => (
+const MovieComments = ({ movieId, comments, getComments }) => (
   <div>
     <div className="d-flex mt-5 mb-3">
       <h3 className="col-auto">Leave comment</h3>
@@ -11,13 +12,22 @@ const MovieComments = ({ movieId, comments }) => (
     <div className="d-flex">
       <h3 className="col">
         { 
-          comments.length === 0 
+          (comments.total === 0)
             ? 'There is no any comment about this movie. Be first to leave one :)' 
-            : comments.length + ' ' + (comments.length === 1 ? 'comment' : 'comments') 
+            : (comments.page === comments.total_pages)
+              ? comments.results.length + ' ' + (comments.results.length === 1 ? 'comment' : 'comments') 
+              : comments.results.length + ' of ' + comments.total + ' comments' 
         }
       </h3>
     </div>
-    <MovieCommentList comments={ comments } />
+    <MovieCommentList comments={ comments.results } />
+    { comments.page < comments.total_pages &&
+      <div className="d-flex justify-content-center my-3">
+        <button className="btn btn-primary" onClick={() => getComments(comments.page + 1)}>
+          <i className="fa fa-refresh mr-1" /> Load more
+        </button>
+      </div>
+    }
   </div>
 );
 
