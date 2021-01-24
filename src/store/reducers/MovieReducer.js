@@ -1,4 +1,4 @@
-import { SET_MOVIES, SET_MOVIE, UPDATE_MOVIE_LIKES, REMOVE_MOVIE_LIKE, UPDATE_MOVIE_VISITS } from '../actions/ActionTypes';
+import { SET_MOVIES, SET_MOVIE, UPDATE_MOVIE_LIKES, REMOVE_MOVIE_LIKE, UPDATE_MOVIE_VISITS, UPDATE_MOVIE_COMMENTS } from '../actions/ActionTypes';
 
 const initialState = {
   movies: {
@@ -7,7 +7,9 @@ const initialState = {
     page: 1,
     results: []
   },
-  currentMovie: {},
+  currentMovie: {
+    movie_comments: []
+  },
   searchBy: '',
   genreFilter: ''
 };
@@ -86,6 +88,14 @@ const movieReducer = (state = initialState, action) => {
     }
     case UPDATE_MOVIE_VISITS:
       return { ...state, currentMovie: {...state.currentMovie, visits: state.currentMovie.visits + 1 } };
+    case UPDATE_MOVIE_COMMENTS:
+      return { 
+        ...state, 
+        currentMovie: {
+          ...state.currentMovie,
+          movie_comments: [action.payload, ...state.currentMovie.movie_comments]
+        } 
+      };
     default:
       return state;
   }
