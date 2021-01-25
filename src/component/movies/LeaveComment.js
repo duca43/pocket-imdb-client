@@ -8,8 +8,8 @@ import { postComment } from '../../store/actions/MovieActions'
 
 class LeaveComment extends Component {
   
-  postComment = (comment) => {
-    this.props.postComment({movie: this.props.movieId, comment});
+  postComment = (content) => {
+    this.props.postComment({movie: this.props.movieId, content});
   }
 
   render() {

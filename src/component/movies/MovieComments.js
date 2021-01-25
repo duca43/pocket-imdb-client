@@ -3,7 +3,7 @@ import '../../styles/css/movies/movie_card.css'
 import LeaveComment from './LeaveComment';
 import MovieCommentList from './MovieCommentList';
 
-const MovieComments = ({ movieId, comments, getComments }) => (
+const MovieComments = ({ movieId, comments, loadMoreComments }) => (
   <div>
     <div className="d-flex mt-5 mb-3">
       <h3 className="col-auto">Leave comment</h3>
@@ -23,7 +23,7 @@ const MovieComments = ({ movieId, comments, getComments }) => (
     <MovieCommentList comments={ comments.results } />
     { comments.page < comments.total_pages &&
       <div className="d-flex justify-content-center my-3">
-        <button className="btn btn-primary" onClick={() => getComments(comments.page + 1)}>
+        <button className="btn btn-primary" onClick={() => loadMoreComments()}>
           <i className="fa fa-refresh mr-1" /> Load more
         </button>
       </div>

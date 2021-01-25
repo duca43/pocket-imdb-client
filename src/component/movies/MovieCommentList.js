@@ -5,7 +5,7 @@ const MovieCommentList = ({ comments }) => (
   <div>
     <div className="d-flex">
         <div className="col">
-          { comments.map((comment, index) => <MovieCommendCard key={ index } comment={ comment } /> )}
+          { comments.map(comment => <MovieCommendCard key={ comment.id } comment={ comment } /> )}
         </div>
     </div>
   </div>

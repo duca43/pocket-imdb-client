@@ -10,11 +10,11 @@ class MoviePage extends Component {
   componentDidMount() {
     this.props.getMovie(this.props.match.params.id);
     this.props.incrementVisits(this.props.match.params.id);
-    this.getComments(this.props.movie.comments.page);
+    this.loadMoreComments();
   }
 
-  getComments = (page) => {
-    this.props.getComments({movie: this.props.match.params.id, page});
+  loadMoreComments = () => {
+    this.props.getComments({movie: this.props.match.params.id, page: this.props.comments.page + 1});
   }
 
   render() {
@@ -26,8 +26,8 @@ class MoviePage extends Component {
         <MoviePageCard movie={ this.props.movie } />
         <MovieComments 
           movieId={ this.props.movie.id } 
-          comments={ this.props.movie.comments } 
-          getComments= { this.getComments } 
+          comments={ this.props.comments } 
+          loadMoreComments={ this.loadMoreComments } 
         />
       </div>
     );
@@ -36,7 +36,8 @@ class MoviePage extends Component {
 
 const mapStateToProps = state => {
   return {
-    movie: state.movie.currentMovie
+    movie: state.movie.currentMovie,
+    comments: state.movie.comments
   };
 };
 

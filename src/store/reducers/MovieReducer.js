@@ -15,13 +15,12 @@ const initialState = {
     page: 1,
     results: []
   },
-  currentMovie: {
-    comments: {
-      total: 0,
-      total_pages: 1,
-      page: 1,
-      results: []
-    } 
+  currentMovie: {},
+  comments: {
+    total: 0,
+    total_pages: 1,
+    page: 0,
+    results: []
   },
   searchBy: '',
   genreFilter: ''
@@ -101,53 +100,32 @@ const movieReducer = (state = initialState, action) => {
     }
     case UPDATE_MOVIE_VISITS:
       return { ...state, currentMovie: {...state.currentMovie, visits: state.currentMovie.visits + 1 } };
-    case PUT_MOVIE_COMMENT: {
-      console.log({
-          ...state.currentMovie,
-          comments: {
-            ...state.currentMovie.comments,
-            results: [
-              action.payload,
-              ...state.currentMovie.comments.results.filter((result, index, self) => 
-                self.findIndex(r => result.timestamp === r.timestamp) === index
-              )
-            ],
-            total: state.currentMovie.comments.total + 1
-          }
-        } 
-      )
+    case PUT_MOVIE_COMMENT:
       return { 
         ...state, 
-        currentMovie: {
-          ...state.currentMovie,
-          comments: {
-            ...state.currentMovie.comments,
-            results: [
-              action.payload,
-              ...state.currentMovie.comments.results.filter((result, index, self) => 
-                self.findIndex(r => result.timestamp === r.timestamp) === index
-              )
-            ],
-            total: state.currentMovie.comments.total + 1
-          }
-        } 
+        comments: {
+          ...state.comments,
+          results: [
+            action.payload,
+            ...state.comments.results.filter((result, index, self) => 
+              self.findIndex(r => result.created_at === r.created_at) === index
+            )
+          ],
+          total: state.comments.total + 1
+        }
       };
-    }
     case UPDATE_MOVIE_COMMENTS:
       return { 
         ...state, 
-        currentMovie: {
-          ...state.currentMovie,
-          comments: {
-            ...action.payload,
-            results: [
-              ...state.currentMovie.comments.results, 
-              ...action.payload.results.filter((result, index, self) => 
-                self.findIndex(r => result.timestamp === r.timestamp) === index
-              )
-            ]
-          }
-        } 
+        comments: {
+          ...action.payload,
+          results: [
+            ...state.comments.results, 
+            ...action.payload.results.filter((result, index, self) => 
+              self.findIndex(r => result.created_at === r.created_at) === index
+            )
+          ]
+        }
       };
     default:
       return state;
