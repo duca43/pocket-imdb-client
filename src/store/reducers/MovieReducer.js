@@ -1,4 +1,4 @@
-import { SET_MOVIES, SET_MOVIE, UPDATE_MOVIE_LIKES, REMOVE_MOVIE_LIKE, UPDATE_MOVIE_VISITS } from '../actions/ActionTypes';
+import { SET_MOVIES, SET_MOVIE, UPDATE_MOVIE_LIKES, REMOVE_MOVIE_LIKE, UPDATE_MOVIE_VISITS, UPDATE_WATCHLIST, ADD_TO_WATCHLIST, REMOVE_FROM_WATCHLIST, UPDATE_MOVIE_IN_WATCHLIST } from '../actions/ActionTypes';
 
 const initialState = {
   movies: {
@@ -9,7 +9,10 @@ const initialState = {
   },
   currentMovie: {},
   searchBy: '',
-  genreFilter: ''
+  genreFilter: '',
+  watchlist: {
+    movies: []
+  }
 };
 const movieReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -86,6 +89,52 @@ const movieReducer = (state = initialState, action) => {
     }
     case UPDATE_MOVIE_VISITS:
       return { ...state, currentMovie: {...state.currentMovie, visits: state.currentMovie.visits + 1 } };
+    case UPDATE_WATCHLIST:
+      return { ...state, watchlist: {...state.watchlist, ...action.payload } };
+    case ADD_TO_WATCHLIST:
+        return { 
+          ...state, 
+          movies: {
+            ...state.movies,
+            results: state.movies.results.map(movie => {
+              if (movie.id !== action.payload.movieId) {
+                return movie;
+              }
+              return {
+                ...movie,
+                in_user_watch_list: true
+              }
+            })
+          },
+          currentMovie: {
+            ...state.currentMovie,
+            in_user_watch_list: true
+          }
+        };
+    case REMOVE_FROM_WATCHLIST:
+      return { 
+        ...state, 
+        watchlist: {
+          ...state.watchlist,
+          movies: state.watchlist.movies.filter(movieWatch => movieWatch.movie.id !== action.payload.movieId)
+        }
+      };
+    case UPDATE_MOVIE_IN_WATCHLIST:
+      return { 
+        ...state, 
+        watchlist: {
+          ...state.watchlist,
+          movies: state.watchlist.movies.map(movieWatch => {
+            if (movieWatch.movie.id !== action.payload.movieId) {
+              return movieWatch;
+            }
+            return {
+              ...movieWatch,
+              watched: action.payload.watched
+            }
+          })
+        }
+      };
     default:
       return state;
   }
