@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../styles/css/movies/movie_card.css'
-import { getTimestampRelativeDiff } from '../../util/timestamp'
+import { getTimestampRelativeDiff } from '../../util/date'
 
 const MovieCommendCard = ({ comment }) => (
   <div className="card py-3 px-4 my-4">

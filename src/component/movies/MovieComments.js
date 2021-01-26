@@ -23,7 +23,7 @@ const MovieComments = ({ movieId, comments, loadMoreComments }) => (
     <MovieCommentList comments={ comments.results } />
     { comments.page < comments.total_pages &&
       <div className="d-flex justify-content-center my-3">
-        <button className="btn btn-primary" onClick={() => loadMoreComments()}>
+        <button className="btn btn-primary" onClick={ loadMoreComments }>
           <i className="fa fa-refresh mr-1" /> Load more
         </button>
       </div>
