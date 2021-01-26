@@ -8,7 +8,9 @@ import {
   REMOVE_LIKE, 
   REMOVE_MOVIE_LIKE,
   INCREMENT_VISITS,
-  UPDATE_MOVIE_VISITS
+  UPDATE_MOVIE_VISITS,
+  GET_POPULAR_MOVIES,
+  SET_POPULAR_MOVIES
 } from './ActionTypes';
 
 export const getMovies = (payload) => {
@@ -77,6 +79,19 @@ export const removeLike = (payload) => {
 export const removeMovieLike = (payload) => {
   return {
     type: REMOVE_MOVIE_LIKE,
+    payload
+  }
+};
+
+export const getPopularMovies = () => {
+  return {
+    type: GET_POPULAR_MOVIES
+  }
+};
+
+export const setPopularMovies = (payload) => {
+  return {
+    type: SET_POPULAR_MOVIES,
     payload
   }
 };

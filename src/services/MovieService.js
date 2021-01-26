@@ -1,7 +1,8 @@
 import ApiService from './ApiService';
 
 const ENDPOINTS = {
-  MOVIES: '/api/movies/'
+  MOVIES: '/api/movies/',
+  POPULAR_MOVIES: '/api/movies/popular'
 };
 
 class MovieService extends ApiService {
@@ -23,6 +24,10 @@ class MovieService extends ApiService {
   
   incrementVisits = (id) => {
     return this.apiClient.patch(ENDPOINTS.MOVIES + id + '/visits/');
+  };
+
+  getPopularMovies = () => {
+    return this.apiClient.get(ENDPOINTS.POPULAR_MOVIES);
   };
 }
 
