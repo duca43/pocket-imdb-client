@@ -2,7 +2,7 @@ import ApiService from './ApiService';
 
 const ENDPOINTS = {
   MOVIES: '/api/movies/',
-  POPULAR_MOVIES: '/api/movies/popular'
+  POPULAR_MOVIES: '/api/popular-movies'
 };
 
 class MovieService extends ApiService {
