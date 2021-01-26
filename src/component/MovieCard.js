@@ -4,13 +4,13 @@ import { MOVIE_GENRES } from '../constants/movies'
 import { withRouter } from 'react-router-dom';
 import MovieLikes from './movies/MovieLikes';
 
-const MovieCard = ({ movie, history, addMovieToWatchlist }) => (
+const MovieCard = ({ movie, history, addMovieToWatchlist, removeFromWatchlist }) => (
   <div className="card text-center">
     <div className="embed-responsive embed-responsive-4by3">
       <img className="card-img-top embed-responsive-item" src={ movie.cover_image_url } alt="Not available :(" />
     </div>
     <div className="card-body pb-0">
-      { movie.user_watched &&
+      { movie.did_user_watch &&
         <div className="d-flex justify-content-end pb-2">
           <span className='badge badge-pill badge-success'>
               Watched <i className="fa fa-check"></i>
@@ -26,9 +26,14 @@ const MovieCard = ({ movie, history, addMovieToWatchlist }) => (
     </div>
     <div className="d-flex justify-content-between pl-3">
         <p className="card-text text-muted my-auto">Visits: { movie.visits }</p>
-        { !movie.in_user_watch_list &&
+        { !movie.is_in_user_watchlist &&
           <button className="btn text-primary" onClick={ () => addMovieToWatchlist(movie.id) }>
             <i className="fa fa-plus mr-1"/> Add to watchlist
+          </button>
+        }
+        { movie.is_in_user_watchlist &&
+          <button className="btn text-primary" onClick={ () => removeFromWatchlist(movie.id) }>
+            <i className="fa fa-times mr-1"/> Remove from watchlist
           </button>
         }
         <button className="btn text-primary" onClick={ () => history.push('/movie/' + movie.id) }>

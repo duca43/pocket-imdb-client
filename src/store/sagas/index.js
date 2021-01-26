@@ -1,7 +1,8 @@
 import { all, takeLatest } from 'redux-saga/effects';
 import { LOGIN, REGISTER, GET_MOVIES, GET_MOVIE, ADD_LIKE, REMOVE_LIKE, INCREMENT_VISITS, GET_WATCHLIST, ADD_TO_WATCHLIST, REMOVE_FROM_WATCHLIST, UPDATE_WATCHED } from '../actions/ActionTypes';
 import { userLogin, userRegister } from './AuthSagas';
-import { getMovie, moviesGet, addOrUpdateLike, removeLike, incrementVisits, getWatchlist, addToWatchlist, removeFromWatchlist, updateWatched } from './MovieSagas';
+import { getMovie, moviesGet, addOrUpdateLike, removeLike, incrementVisits } from './MovieSagas';
+import { getWatchlist, addToWatchlist, removeFromWatchlist, updateWatched } from './WatchlistSagas';
 
 export default function* rootSaga() {
   yield all([

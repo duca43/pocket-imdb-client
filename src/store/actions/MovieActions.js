@@ -8,15 +8,7 @@ import {
   REMOVE_LIKE, 
   REMOVE_MOVIE_LIKE,
   INCREMENT_VISITS,
-  UPDATE_MOVIE_VISITS,
-  GET_WATCHLIST,
-  UPDATE_WATCHLIST,
-  ADD_TO_WATCHLIST,
-  PUT_MOVIE_INTO_WATCHLIST,
-  REMOVE_FROM_WATCHLIST,
-  PUT_MOVIE_OUT_OF_WATCHLIST,
-  UPDATE_WATCHED,
-  UPDATE_MOVIE_IN_WATCHLIST
+  UPDATE_MOVIE_VISITS
 } from './ActionTypes';
 
 export const getMovies = (payload) => {
@@ -85,61 +77,6 @@ export const removeLike = (payload) => {
 export const removeMovieLike = (payload) => {
   return {
     type: REMOVE_MOVIE_LIKE,
-    payload
-  }
-};
-
-export const getWatchlist = () => {
-  return {
-    type: GET_WATCHLIST
-  }
-};
-
-export const updateWatchlist = (payload) => {
-  return {
-    type: UPDATE_WATCHLIST,
-    payload
-  }
-};
-
-export const addToWatchlist = (payload) => {
-  return {
-    type: ADD_TO_WATCHLIST,
-    payload
-  }
-};
-
-export const putMovieIntoWatchlist = (payload) => {
-  return {
-    type: PUT_MOVIE_INTO_WATCHLIST,
-    payload
-  }
-};
-
-export const removeFromWatchlist = (payload) => {
-  return {
-    type: REMOVE_FROM_WATCHLIST,
-    payload
-  }
-};
-
-export const putMovieOutOfWatchlist = (payload) => {
-  return {
-    type: PUT_MOVIE_OUT_OF_WATCHLIST,
-    payload
-  }
-};
-
-export const updateWatched = (payload) => {
-  return {
-    type: UPDATE_WATCHED,
-    payload
-  }
-};
-
-export const updateMovieInWatchlist = (payload) => {
-  return {
-    type: UPDATE_MOVIE_IN_WATCHLIST,
     payload
   }
 };

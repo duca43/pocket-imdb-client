@@ -1,7 +1,7 @@
 import { call, put } from 'redux-saga/effects';
 
 import { movieService } from '../../services/MovieService';
-import { setMovies, setMovie, updateMovieLikes, removeMovieLike, updateMovieVisits, updateWatchlist, putMovieIntoWatchlist, putMovieOutOfWatchlist, updateMovieInWatchlist } from '../actions/MovieActions';
+import { setMovies, setMovie, updateMovieLikes, removeMovieLike, updateMovieVisits } from '../actions/MovieActions';
 import { push, go } from 'connected-react-router';
 
 export function* moviesGet({ payload }) {
@@ -48,46 +48,6 @@ export function* incrementVisits({ payload }) {
     yield call(movieService.incrementVisits, payload);
 
     yield put(updateMovieVisits(payload));
-  } catch (error) {
-    yield put(push('/not-found'));
-    yield put(go());
-  }
-}
-
-export function* getWatchlist() {
-  try {
-    const { data } = yield call(movieService.getWatchlist);
-    yield put(updateWatchlist(data));
-  } catch (error) {
-    yield put(push('/not-found'));
-    yield put(go());
-  }
-}
-
-export function* addToWatchlist({ payload }) {
-  try {
-    yield call(movieService.addToWatchlist, payload);
-    yield put(putMovieIntoWatchlist(payload));
-  } catch (error) {
-    yield put(push('/not-found'));
-    yield put(go());
-  }
-}
-
-export function* removeFromWatchlist({ payload }) {
-  try {
-    yield call(movieService.removeFromWatchlist, payload);
-    yield put(putMovieOutOfWatchlist(payload));
-  } catch (error) {
-    yield put(push('/not-found'));
-    yield put(go());
-  }
-}
-
-export function* updateWatched({ payload }) {
-  try {
-    yield call(movieService.updateWatched, payload);
-    yield put(updateMovieInWatchlist(payload));
   } catch (error) {
     yield put(push('/not-found'));
     yield put(go());

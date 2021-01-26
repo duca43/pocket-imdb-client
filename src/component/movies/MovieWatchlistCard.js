@@ -17,13 +17,13 @@ const MovieWatchlistCard = ({ movieWatch, markAsWatched, removeFromWatchlist }) 
         <input
           type='checkbox'
           className='form-check-input'
-          id={'watched' + (movieWatch.movie.id)}
-          checked={ movieWatch.watched }
-          onChange={() => markAsWatched(movieWatch.movie.id)}
+          id={'watched' + (movieWatch.id)}
+          checked={ movieWatch.is_watched }
+          onChange={() => markAsWatched(movieWatch.id)}
           />
-        <label className="form-check-label" htmlFor={'watched' + (movieWatch.movie.id)}>Watched</label>
+        <label className="form-check-label" htmlFor={'watched' + (movieWatch.id)}>Watched</label>
       </div>
-      <button className="btn text-primary" onClick={() => removeFromWatchlist(movieWatch.movie.id)}>
+      <button className="btn text-primary" onClick={() => removeFromWatchlist(movieWatch.id)}>
         <i className="fa fa-times mr-1"/> Remove
       </button>
     </div>
