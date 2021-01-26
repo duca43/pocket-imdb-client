@@ -1,7 +1,9 @@
 import ApiService from './ApiService';
+import { format } from 'util'
 
 const ENDPOINTS = {
-  MOVIES: '/api/movies/'
+  MOVIES: '/api/movies/',
+  RELATED_MOVIES: '/api/movies/%s/related'
 };
 
 class MovieService extends ApiService {
@@ -23,6 +25,10 @@ class MovieService extends ApiService {
   
   incrementVisits = (id) => {
     return this.apiClient.patch(ENDPOINTS.MOVIES + id + '/visits/');
+  };
+
+  getRelatedMovies = (id) => {
+    return this.apiClient.get(format(ENDPOINTS.RELATED_MOVIES, id));
   };
 }
 

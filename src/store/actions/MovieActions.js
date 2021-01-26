@@ -8,7 +8,9 @@ import {
   REMOVE_LIKE, 
   REMOVE_MOVIE_LIKE,
   INCREMENT_VISITS,
-  UPDATE_MOVIE_VISITS
+  UPDATE_MOVIE_VISITS,
+  GET_RELATED_MOVIES,
+  SET_RELATED_MOVIES
 } from './ActionTypes';
 
 export const getMovies = (payload) => {
@@ -80,3 +82,17 @@ export const removeMovieLike = (payload) => {
     payload
   }
 };
+
+export const getRelatedMovies = (payload) => {
+  return {
+    type: GET_RELATED_MOVIES,
+    payload
+  }
+};
+
+export const setRelatedMovies = (payload) => {
+  return {
+    type: SET_RELATED_MOVIES,
+    payload
+  }
+}; 
