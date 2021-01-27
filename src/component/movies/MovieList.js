@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getMovies } from '../../store/actions/MovieActions';
+import { getWatchlist, addToWatchlist, removeFromWatchlist } from '../../store/actions/WatchlistActions';
 import Pagination from '../Pagination'
 import MovieCard from './MovieCard'
 import debounce from 'lodash/debounce'
@@ -10,6 +11,7 @@ class MovieList extends Component {
 
     componentDidMount() {
         this.retrieveMoviesByPage(this.props.movies.page);
+        this.props.getWatchlist(this.props.userId);
     }
   
     retrieveMoviesByPage = (page) => {
@@ -25,6 +27,15 @@ class MovieList extends Component {
 
     retrieveMoviesByFilter = (genre) => {
         this.props.getMovies({page: 1, search: this.props.searchBy, genre: genre});
+    }
+
+    addMovieToWatchlist = (movieId) => {
+        this.props.addToWatchlist({ userId: this.props.userId, movieId });
+    }
+
+    removeFromWatchlist = (movieId) => {
+        const watchlistMovieId = this.props.watchlist.find(watchlistMovie => watchlistMovie.movie.id === movieId).id
+        this.props.removeFromWatchlist({ userId: this.props.userId, watchlistMovieId, movieId });
     }
 
     render() {
@@ -52,7 +63,10 @@ class MovieList extends Component {
                 <div className="row">
                     {this.props.movies.results.map(movie => 
                         <div className="my-3 mx-5 col-3" key={movie.id}>
-                            <MovieCard movie={movie} />
+                            <MovieCard 
+                                movie={ movie } 
+                                addMovieToWatchlist={ this.addMovieToWatchlist }
+                                removeFromWatchlist = { this.removeFromWatchlist } />
                         </div>
                     )}                    
                 </div>
@@ -65,12 +79,17 @@ const mapStateToProps = state => {
     return {
       movies: state.movie.movies,
       searchBy: state.movie.searchBy,
-      genreFilter: state.movie.genreFilter
+      genreFilter: state.movie.genreFilter,
+      userId: state.authUser.id,
+      watchlist: state.watchlist.all,
     };
 };
 
 const mapDispatchToProps = {
-    getMovies
+    getMovies,
+    addToWatchlist,
+    getWatchlist,
+    removeFromWatchlist
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieList);

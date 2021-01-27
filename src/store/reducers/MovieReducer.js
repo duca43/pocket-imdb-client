@@ -5,7 +5,9 @@ import {
   REMOVE_MOVIE_LIKE, 
   UPDATE_MOVIE_VISITS, 
   UPDATE_MOVIE_COMMENTS,
-  PUT_MOVIE_COMMENT
+  PUT_MOVIE_COMMENT,
+  PUT_MOVIE_INTO_WATCHLIST,
+  PUT_MOVIE_OUT_OF_WATCHLIST
 } from '../actions/ActionTypes';
 
 const initialState = {
@@ -25,6 +27,7 @@ const initialState = {
   searchBy: '',
   genreFilter: ''
 };
+
 const movieReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_MOVIES:
@@ -87,7 +90,6 @@ const movieReducer = (state = initialState, action) => {
             }
 
             const likeProperty = movie.user_liked_or_disliked === 1 ? 'likes' : 'dislikes';
-            console.log(movie.user_liked_or_disliked)
             return {
               ...movie,
               [likeProperty]: movie[likeProperty] - 1,
@@ -115,16 +117,61 @@ const movieReducer = (state = initialState, action) => {
         }
       };
     case UPDATE_MOVIE_COMMENTS:
+      const newComments = [
+        ...action.payload.results.filter((result, index, self) => 
+          self.findIndex(r => result.created_at === r.created_at) === index
+        )
+      ];
       return { 
         ...state, 
         comments: {
           ...action.payload,
-          results: [
+          results: action.payload.page === 1 ? newComments : [
             ...state.comments.results, 
-            ...action.payload.results.filter((result, index, self) => 
-              self.findIndex(r => result.created_at === r.created_at) === index
-            )
+            ...newComments
           ]
+        }
+      };
+    case PUT_MOVIE_INTO_WATCHLIST:
+      return { 
+        ...state, 
+        movies: {
+          ...state.movies,
+          results: state.movies.results.map(movie => {
+            if (movie.id !== action.payload.movie.id) {
+              return movie;
+            }
+            return {
+              ...movie,
+              is_in_user_watchlist: true
+            }
+          })
+        },
+        currentMovie: {
+          ...state.currentMovie,
+          is_in_user_watchlist: true
+        }
+      };
+    case PUT_MOVIE_OUT_OF_WATCHLIST:
+      return { 
+        ...state,
+        movies: {
+          ...state.movies,
+          results: state.movies.results.map(movie => {
+            if (movie.id !== action.payload.movieId) {
+              return movie;
+            }
+            return {
+              ...movie,
+              is_in_user_watchlist: false,
+              did_user_watch: false
+            }
+          })
+        },
+        currentMovie: {
+          ...state.currentMovie,
+          is_in_user_watchlist: false,
+          did_user_watch: false
         }
       };
     default:

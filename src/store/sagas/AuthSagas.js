@@ -9,8 +9,7 @@ import { extractErrorMessage } from '../../util/error'
 export function* userLogin({ payload }) {
   try {
     yield call(AuthService.login, payload);
-
-    yield put(authUser(true));
+    yield put(authUser(AuthService.getUser()));
     yield put(push('/home'));
     yield put(go());
   } catch (error) {

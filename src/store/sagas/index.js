@@ -8,9 +8,14 @@ import {
   REMOVE_LIKE,
   INCREMENT_VISITS, 
   POST_COMMENT, 
-  GET_COMMENTS } from '../actions/ActionTypes';
+  GET_COMMENTS, 
+  GET_WATCHLIST, 
+  ADD_TO_WATCHLIST, 
+  REMOVE_FROM_WATCHLIST, 
+  UPDATE_WATCHED } from '../actions/ActionTypes';
 import { userLogin, userRegister } from './AuthSagas';
 import { getMovie, moviesGet, addOrUpdateLike, removeLike, incrementVisits, postComment, getComments } from './MovieSagas';
+import { getWatchlist, addToWatchlist, removeFromWatchlist, updateWatched } from './WatchlistSagas';
 
 export default function* rootSaga() {
   yield all([
@@ -23,5 +28,9 @@ export default function* rootSaga() {
     takeLatest(INCREMENT_VISITS, incrementVisits),
     takeLatest(POST_COMMENT, postComment),
     takeLatest(GET_COMMENTS, getComments),
+    takeLatest(GET_WATCHLIST, getWatchlist),
+    takeLatest(ADD_TO_WATCHLIST, addToWatchlist),
+    takeLatest(REMOVE_FROM_WATCHLIST, removeFromWatchlist),
+    takeLatest(UPDATE_WATCHED, updateWatched)
   ]);
 }

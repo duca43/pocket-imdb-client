@@ -2,6 +2,15 @@
     object-fit: cover;
 }
 
+.badge {
+    font-size: 90% !important;
+    border-radius: 20px;
+}
+
+.badge-big {
+    font-size: 120% !important;
+}
+
 .bottom-right {
     position: absolute;
     bottom: 5%;
