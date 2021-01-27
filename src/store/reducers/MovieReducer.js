@@ -4,6 +4,8 @@ import {
   UPDATE_MOVIE_LIKES, 
   REMOVE_MOVIE_LIKE, 
   UPDATE_MOVIE_VISITS, 
+  UPDATE_MOVIE_COMMENTS,
+  PUT_MOVIE_COMMENT,
   PUT_MOVIE_INTO_WATCHLIST,
   PUT_MOVIE_OUT_OF_WATCHLIST
 } from '../actions/ActionTypes';
@@ -16,6 +18,12 @@ const initialState = {
     results: []
   },
   currentMovie: {},
+  comments: {
+    total: 0,
+    total_pages: 1,
+    page: 0,
+    results: []
+  },
   searchBy: '',
   genreFilter: ''
 };
@@ -25,7 +33,7 @@ const movieReducer = (state = initialState, action) => {
     case SET_MOVIES:
       return { ...state, movies: action.payload.movies, searchBy: action.payload.searchBy, genreFilter: action.payload.genreFilter };
     case SET_MOVIE:
-      return { ...state, currentMovie: action.payload };
+      return { ...state, currentMovie: { ...state.currentMovie, ...action.payload } };
     case UPDATE_MOVIE_LIKES: {
       const likeProperty = action.payload.like === 1 ? 'likes' : 'dislikes';
       const otherProperty = action.payload.like === -1 ? 'likes' : 'dislikes';
@@ -94,6 +102,36 @@ const movieReducer = (state = initialState, action) => {
     }
     case UPDATE_MOVIE_VISITS:
       return { ...state, currentMovie: {...state.currentMovie, visits: state.currentMovie.visits + 1 } };
+    case PUT_MOVIE_COMMENT:
+      return { 
+        ...state, 
+        comments: {
+          ...state.comments,
+          results: [
+            action.payload,
+            ...state.comments.results.filter((result, index, self) => 
+              self.findIndex(r => result.created_at === r.created_at) === index
+            )
+          ],
+          total: state.comments.total + 1
+        }
+      };
+    case UPDATE_MOVIE_COMMENTS:
+      const newComments = [
+        ...action.payload.results.filter((result, index, self) => 
+          self.findIndex(r => result.created_at === r.created_at) === index
+        )
+      ];
+      return { 
+        ...state, 
+        comments: {
+          ...action.payload,
+          results: action.payload.page === 1 ? newComments : [
+            ...state.comments.results, 
+            ...newComments
+          ]
+        }
+      };
     case PUT_MOVIE_INTO_WATCHLIST:
       return { 
         ...state, 

@@ -8,7 +8,11 @@ import {
   REMOVE_LIKE, 
   REMOVE_MOVIE_LIKE,
   INCREMENT_VISITS,
-  UPDATE_MOVIE_VISITS
+  UPDATE_MOVIE_VISITS,
+  POST_COMMENT,
+  UPDATE_MOVIE_COMMENTS,
+  GET_COMMENTS,
+  PUT_MOVIE_COMMENT
 } from './ActionTypes';
 
 export const getMovies = (payload) => {
@@ -77,6 +81,34 @@ export const removeLike = (payload) => {
 export const removeMovieLike = (payload) => {
   return {
     type: REMOVE_MOVIE_LIKE,
+    payload
+  }
+};
+
+export const postComment = (payload) => {
+  return {
+    type: POST_COMMENT,
+    payload
+  };
+};
+
+export const putMovieComment = (payload) => {
+  return {
+    type: PUT_MOVIE_COMMENT,
+    payload
+  }
+};
+
+export const getComments = (payload) => {
+  return {
+    type: GET_COMMENTS,
+    payload
+  };
+};
+
+export const updateMovieComments = (payload) => {
+  return {
+    type: UPDATE_MOVIE_COMMENTS,
     payload
   }
 };

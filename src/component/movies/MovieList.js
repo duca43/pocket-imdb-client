@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { getMovies } from '../../store/actions/MovieActions';
 import { getWatchlist, addToWatchlist, removeFromWatchlist } from '../../store/actions/WatchlistActions';
 import Pagination from '../Pagination'
-import MovieCard from '../MovieCard'
+import MovieCard from './MovieCard'
 import debounce from 'lodash/debounce'
 import { MOVIE_GENRES } from '../../constants/movies'
 

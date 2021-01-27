@@ -1,7 +1,20 @@
 import { all, takeLatest } from 'redux-saga/effects';
-import { LOGIN, REGISTER, GET_MOVIES, GET_MOVIE, ADD_LIKE, REMOVE_LIKE, INCREMENT_VISITS, GET_WATCHLIST, ADD_TO_WATCHLIST, REMOVE_FROM_WATCHLIST, UPDATE_WATCHED } from '../actions/ActionTypes';
+import { 
+  LOGIN, 
+  REGISTER, 
+  GET_MOVIES, 
+  GET_MOVIE, 
+  ADD_LIKE, 
+  REMOVE_LIKE,
+  INCREMENT_VISITS, 
+  POST_COMMENT, 
+  GET_COMMENTS, 
+  GET_WATCHLIST, 
+  ADD_TO_WATCHLIST, 
+  REMOVE_FROM_WATCHLIST, 
+  UPDATE_WATCHED } from '../actions/ActionTypes';
 import { userLogin, userRegister } from './AuthSagas';
-import { getMovie, moviesGet, addOrUpdateLike, removeLike, incrementVisits } from './MovieSagas';
+import { getMovie, moviesGet, addOrUpdateLike, removeLike, incrementVisits, postComment, getComments } from './MovieSagas';
 import { getWatchlist, addToWatchlist, removeFromWatchlist, updateWatched } from './WatchlistSagas';
 
 export default function* rootSaga() {
@@ -13,6 +26,8 @@ export default function* rootSaga() {
     takeLatest(ADD_LIKE, addOrUpdateLike),
     takeLatest(REMOVE_LIKE, removeLike),
     takeLatest(INCREMENT_VISITS, incrementVisits),
+    takeLatest(POST_COMMENT, postComment),
+    takeLatest(GET_COMMENTS, getComments),
     takeLatest(GET_WATCHLIST, getWatchlist),
     takeLatest(ADD_TO_WATCHLIST, addToWatchlist),
     takeLatest(REMOVE_FROM_WATCHLIST, removeFromWatchlist),
