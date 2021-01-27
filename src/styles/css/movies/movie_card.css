@@ -1,3 +1,24 @@
 .embed-responsive .card-img-top {
     object-fit: cover;
 }
+
+.bottom-right {
+    position: absolute;
+    bottom: 5%;
+    right: 0;
+}
+
+.form-group textarea {
+    border-color: var(--primary);
+    border-radius: 10px;
+}
+
+.btn {
+    border-radius: 10px !important;
+}
+
+.card {
+    border: none !important;
+    box-shadow: 5px 6px 6px 2px #e9ecef;
+    border-radius: 10px
+}

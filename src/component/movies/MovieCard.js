@@ -1,8 +1,8 @@
 import React from 'react';
-import '../styles/css/movies/movie_card.css'
-import { MOVIE_GENRES } from '../constants/movies'
+import '../../styles/css/movies/movie_card.css'
+import { MOVIE_GENRES } from '../../constants/movies'
 import { withRouter } from 'react-router-dom';
-import MovieLikes from './movies/MovieLikes';
+import MovieLikes from './MovieLikes';
 
 const MovieCard = ({ movie, history }) => (
   <div className="card">

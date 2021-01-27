@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getMovies } from '../../store/actions/MovieActions';
 import Pagination from '../Pagination'
-import MovieCard from '../MovieCard'
+import MovieCard from './MovieCard'
 import debounce from 'lodash/debounce'
 import { MOVIE_GENRES } from '../../constants/movies'
 
