@@ -9,7 +9,9 @@ import {
   updateMovieVisits, 
   putMovieComment,
   updateMovieComments,
-  setPopularMovies } from '../actions/MovieActions';
+  setPopularMovies,
+  setRelatedMovies
+} from '../actions/MovieActions';
 import { push, go } from 'connected-react-router';
 
 export function* moviesGet({ payload }) {
@@ -69,7 +71,7 @@ export function* postComment({ payload }) {
   } catch (error) {
     yield put(push('/not-found'));
     yield put(go());
-  }
+  } 
 }
 
 export function* getComments({ payload }) {
@@ -90,4 +92,14 @@ export function* getPopularMovies() {
     yield put(push('/not-found'));
     yield put(go());
   }
+}
+
+export function* getRelatedMovies({ payload }) {
+  try {
+    const { data } = yield call(movieService.getRelatedMovies, payload);
+    yield put(setRelatedMovies(data));
+  } catch (error) {
+    yield put(push('/not-found'));
+    yield put(go());
+  } 
 }

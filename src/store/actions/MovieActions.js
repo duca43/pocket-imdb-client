@@ -14,7 +14,9 @@ import {
   GET_COMMENTS,
   PUT_MOVIE_COMMENT,
   GET_POPULAR_MOVIES,
-  SET_POPULAR_MOVIES
+  SET_POPULAR_MOVIES,
+  GET_RELATED_MOVIES,
+  SET_RELATED_MOVIES
 } from './ActionTypes';
 
 export const getMovies = (payload) => {
@@ -127,3 +129,17 @@ export const setPopularMovies = (payload) => {
     payload
   }
 }
+
+export const getRelatedMovies = (payload) => {
+  return {
+    type: GET_RELATED_MOVIES,
+    payload
+  }
+};
+
+export const setRelatedMovies = (payload) => {
+  return {
+    type: SET_RELATED_MOVIES,
+    payload
+  }
+};

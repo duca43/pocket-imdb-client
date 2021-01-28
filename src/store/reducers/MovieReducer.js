@@ -8,7 +8,8 @@ import {
   PUT_MOVIE_COMMENT,
   PUT_MOVIE_INTO_WATCHLIST,
   PUT_MOVIE_OUT_OF_WATCHLIST,
-  SET_POPULAR_MOVIES
+  SET_POPULAR_MOVIES,
+  SET_RELATED_MOVIES
 } from '../actions/ActionTypes';
 
 const initialState = {
@@ -27,7 +28,8 @@ const initialState = {
   },
   searchBy: '',
   genreFilter: '',
-  popularMovies: []
+  popularMovies: [],
+  relatedMovies: []
 };
 
 const movieReducer = (state = initialState, action) => {
@@ -178,6 +180,8 @@ const movieReducer = (state = initialState, action) => {
       };
     case SET_POPULAR_MOVIES:
       return { ...state, popularMovies: [ ...action.payload ] };
+    case SET_RELATED_MOVIES:
+      return { ...state, relatedMovies: action.payload };
     default:
       return state;
   }

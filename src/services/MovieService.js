@@ -10,7 +10,8 @@ const ENDPOINTS = {
   VISITS: '/api/movies/%d/visits/',
   COMMENTS: '/api/movies/%d/comments/',
   GET_COMMENTS: '/api/movies/%d/comments/?page=%d',
-  POPULAR_MOVIES: '/api/popular-movies'
+  POPULAR_MOVIES: '/api/popular-movies',
+  RELATED_MOVIES: '/api/movies/%s/related'
 };
 
 class MovieService extends ApiService {
@@ -44,6 +45,10 @@ class MovieService extends ApiService {
 
   getPopularMovies = () => {
     return this.apiClient.get(ENDPOINTS.POPULAR_MOVIES);
+  };
+
+  getRelatedMovies = (id) => {
+    return this.apiClient.get(format(ENDPOINTS.RELATED_MOVIES, id));
   };
 }
 
