@@ -12,9 +12,10 @@ import {
   GET_WATCHLIST, 
   ADD_TO_WATCHLIST, 
   REMOVE_FROM_WATCHLIST, 
-  UPDATE_WATCHED } from '../actions/ActionTypes';
+  UPDATE_WATCHED,
+  GET_POPULAR_MOVIES } from '../actions/ActionTypes';
 import { userLogin, userRegister } from './AuthSagas';
-import { getMovie, moviesGet, addOrUpdateLike, removeLike, incrementVisits, postComment, getComments } from './MovieSagas';
+import { getMovie, moviesGet, addOrUpdateLike, removeLike, incrementVisits, postComment, getComments, getPopularMovies } from './MovieSagas';
 import { getWatchlist, addToWatchlist, removeFromWatchlist, updateWatched } from './WatchlistSagas';
 
 export default function* rootSaga() {
@@ -31,6 +32,7 @@ export default function* rootSaga() {
     takeLatest(GET_WATCHLIST, getWatchlist),
     takeLatest(ADD_TO_WATCHLIST, addToWatchlist),
     takeLatest(REMOVE_FROM_WATCHLIST, removeFromWatchlist),
-    takeLatest(UPDATE_WATCHED, updateWatched)
+    takeLatest(UPDATE_WATCHED, updateWatched),
+    takeLatest(GET_POPULAR_MOVIES, getPopularMovies)
   ]);
 }

@@ -8,7 +8,8 @@ import {
   removeMovieLike, 
   updateMovieVisits, 
   putMovieComment,
-  updateMovieComments } from '../actions/MovieActions';
+  updateMovieComments,
+  setPopularMovies } from '../actions/MovieActions';
 import { push, go } from 'connected-react-router';
 
 export function* moviesGet({ payload }) {
@@ -75,6 +76,16 @@ export function* getComments({ payload }) {
   try {
     const { data } = yield call(movieService.getComments, payload);
     yield put(updateMovieComments(data));
+  } catch (error) {
+    yield put(push('/not-found'));
+    yield put(go());
+  }
+}
+
+export function* getPopularMovies() {
+  try {
+    const { data } = yield call(movieService.getPopularMovies);
+    yield put(setPopularMovies(data));
   } catch (error) {
     yield put(push('/not-found'));
     yield put(go());

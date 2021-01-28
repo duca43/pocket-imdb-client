@@ -7,7 +7,8 @@ import {
   UPDATE_MOVIE_COMMENTS,
   PUT_MOVIE_COMMENT,
   PUT_MOVIE_INTO_WATCHLIST,
-  PUT_MOVIE_OUT_OF_WATCHLIST
+  PUT_MOVIE_OUT_OF_WATCHLIST,
+  SET_POPULAR_MOVIES
 } from '../actions/ActionTypes';
 
 const initialState = {
@@ -25,7 +26,8 @@ const initialState = {
     results: []
   },
   searchBy: '',
-  genreFilter: ''
+  genreFilter: '',
+  popularMovies: []
 };
 
 const movieReducer = (state = initialState, action) => {
@@ -174,6 +176,8 @@ const movieReducer = (state = initialState, action) => {
           did_user_watch: false
         }
       };
+    case SET_POPULAR_MOVIES:
+      return { ...state, popularMovies: [ ...action.payload ] };
     default:
       return state;
   }

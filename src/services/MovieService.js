@@ -2,13 +2,15 @@ import ApiService from './ApiService';
 import { format } from 'util'
 
 const ENDPOINTS = {
+  MOVIES: '/api/movies/',
   GET_MOVIES: '/api/movies/?page=%d&search=%s&genre=%s',
   GET_MOVIE: '/api/movies/%d',
   LIKE: '/api/movies/%d/like/',
   REMOVE_LIKE: '/api/movies/%d/remove-like/',
   VISITS: '/api/movies/%d/visits/',
   COMMENTS: '/api/movies/%d/comments/',
-  GET_COMMENTS: '/api/movies/%d/comments/?page=%d'
+  GET_COMMENTS: '/api/movies/%d/comments/?page=%d',
+  POPULAR_MOVIES: '/api/popular-movies'
 };
 
 class MovieService extends ApiService {
@@ -38,6 +40,10 @@ class MovieService extends ApiService {
 
   getComments = (payload) => {
     return this.apiClient.get(format(ENDPOINTS.GET_COMMENTS, payload.movie, payload.page));
+  };
+
+  getPopularMovies = () => {
+    return this.apiClient.get(ENDPOINTS.POPULAR_MOVIES);
   };
 }
 
