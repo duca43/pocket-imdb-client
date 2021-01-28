@@ -1,3 +1,33 @@
 .embed-responsive .card-img-top {
     object-fit: cover;
 }
+
+.badge {
+    font-size: 90% !important;
+    border-radius: 20px;
+}
+
+.badge-big {
+    font-size: 120% !important;
+}
+
+.bottom-right {
+    position: absolute;
+    bottom: 5%;
+    right: 0;
+}
+
+.form-group textarea {
+    border-color: var(--primary);
+    border-radius: 10px;
+}
+
+.btn {
+    border-radius: 10px !important;
+}
+
+.card {
+    border: none !important;
+    box-shadow: 5px 6px 6px 2px #e9ecef;
+    border-radius: 10px
+}

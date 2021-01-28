@@ -1,4 +1,16 @@
-import { SET_MOVIES, SET_MOVIE, UPDATE_MOVIE_LIKES, REMOVE_MOVIE_LIKE, UPDATE_MOVIE_VISITS, SET_RELATED_MOVIES } from '../actions/ActionTypes';
+import { 
+  SET_MOVIES, 
+  SET_MOVIE, 
+  UPDATE_MOVIE_LIKES, 
+  REMOVE_MOVIE_LIKE, 
+  UPDATE_MOVIE_VISITS, 
+  UPDATE_MOVIE_COMMENTS,
+  PUT_MOVIE_COMMENT,
+  PUT_MOVIE_INTO_WATCHLIST,
+  PUT_MOVIE_OUT_OF_WATCHLIST,
+  SET_POPULAR_MOVIES,
+  SET_RELATED_MOVIES
+} from '../actions/ActionTypes';
 
 const initialState = {
   movies: {
@@ -8,16 +20,24 @@ const initialState = {
     results: []
   },
   currentMovie: {},
+  comments: {
+    total: 0,
+    total_pages: 1,
+    page: 0,
+    results: []
+  },
   searchBy: '',
   genreFilter: '',
+  popularMovies: [],
   relatedMovies: []
 };
+
 const movieReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_MOVIES:
       return { ...state, movies: action.payload.movies, searchBy: action.payload.searchBy, genreFilter: action.payload.genreFilter };
     case SET_MOVIE:
-      return { ...state, currentMovie: action.payload };
+      return { ...state, currentMovie: { ...state.currentMovie, ...action.payload } };
     case UPDATE_MOVIE_LIKES: {
       const likeProperty = action.payload.like === 1 ? 'likes' : 'dislikes';
       const otherProperty = action.payload.like === -1 ? 'likes' : 'dislikes';
@@ -74,7 +94,6 @@ const movieReducer = (state = initialState, action) => {
             }
 
             const likeProperty = movie.user_liked_or_disliked === 1 ? 'likes' : 'dislikes';
-            console.log(movie.user_liked_or_disliked)
             return {
               ...movie,
               [likeProperty]: movie[likeProperty] - 1,
@@ -87,6 +106,80 @@ const movieReducer = (state = initialState, action) => {
     }
     case UPDATE_MOVIE_VISITS:
       return { ...state, currentMovie: {...state.currentMovie, visits: state.currentMovie.visits + 1 } };
+    case PUT_MOVIE_COMMENT:
+      return { 
+        ...state, 
+        comments: {
+          ...state.comments,
+          results: [
+            action.payload,
+            ...state.comments.results.filter((result, index, self) => 
+              self.findIndex(r => result.created_at === r.created_at) === index
+            )
+          ],
+          total: state.comments.total + 1
+        }
+      };
+    case UPDATE_MOVIE_COMMENTS:
+      const newComments = [
+        ...action.payload.results.filter((result, index, self) => 
+          self.findIndex(r => result.created_at === r.created_at) === index
+        )
+      ];
+      return { 
+        ...state, 
+        comments: {
+          ...action.payload,
+          results: action.payload.page === 1 ? newComments : [
+            ...state.comments.results, 
+            ...newComments
+          ]
+        }
+      };
+    case PUT_MOVIE_INTO_WATCHLIST:
+      return { 
+        ...state, 
+        movies: {
+          ...state.movies,
+          results: state.movies.results.map(movie => {
+            if (movie.id !== action.payload.movie.id) {
+              return movie;
+            }
+            return {
+              ...movie,
+              is_in_user_watchlist: true
+            }
+          })
+        },
+        currentMovie: {
+          ...state.currentMovie,
+          is_in_user_watchlist: true
+        }
+      };
+    case PUT_MOVIE_OUT_OF_WATCHLIST:
+      return { 
+        ...state,
+        movies: {
+          ...state.movies,
+          results: state.movies.results.map(movie => {
+            if (movie.id !== action.payload.movieId) {
+              return movie;
+            }
+            return {
+              ...movie,
+              is_in_user_watchlist: false,
+              did_user_watch: false
+            }
+          })
+        },
+        currentMovie: {
+          ...state.currentMovie,
+          is_in_user_watchlist: false,
+          did_user_watch: false
+        }
+      };
+    case SET_POPULAR_MOVIES:
+      return { ...state, popularMovies: [ ...action.payload ] };
     case SET_RELATED_MOVIES:
       return { ...state, relatedMovies: action.payload };
     default:

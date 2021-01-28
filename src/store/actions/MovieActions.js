@@ -9,6 +9,12 @@ import {
   REMOVE_MOVIE_LIKE,
   INCREMENT_VISITS,
   UPDATE_MOVIE_VISITS,
+  POST_COMMENT,
+  UPDATE_MOVIE_COMMENTS,
+  GET_COMMENTS,
+  PUT_MOVIE_COMMENT,
+  GET_POPULAR_MOVIES,
+  SET_POPULAR_MOVIES,
   GET_RELATED_MOVIES,
   SET_RELATED_MOVIES
 } from './ActionTypes';
@@ -83,6 +89,47 @@ export const removeMovieLike = (payload) => {
   }
 };
 
+export const postComment = (payload) => {
+  return {
+    type: POST_COMMENT,
+    payload
+  };
+};
+
+export const putMovieComment = (payload) => {
+  return {
+    type: PUT_MOVIE_COMMENT,
+    payload
+  }
+};
+
+export const getComments = (payload) => {
+  return {
+    type: GET_COMMENTS,
+    payload
+  };
+};
+
+export const updateMovieComments = (payload) => {
+  return {
+    type: UPDATE_MOVIE_COMMENTS,
+    payload
+  }
+};
+
+export const getPopularMovies = () => {
+  return {
+    type: GET_POPULAR_MOVIES
+  }
+};
+
+export const setPopularMovies = (payload) => {
+  return {
+    type: SET_POPULAR_MOVIES,
+    payload
+  }
+}
+
 export const getRelatedMovies = (payload) => {
   return {
     type: GET_RELATED_MOVIES,
@@ -95,4 +142,4 @@ export const setRelatedMovies = (payload) => {
     type: SET_RELATED_MOVIES,
     payload
   }
-}; 
+};

@@ -1,7 +1,17 @@
 import { call, put } from 'redux-saga/effects';
 
 import { movieService } from '../../services/MovieService';
-import { setMovies, setMovie, updateMovieLikes, removeMovieLike, updateMovieVisits, setRelatedMovies } from '../actions/MovieActions';
+import { 
+  setMovies, 
+  setMovie, 
+  updateMovieLikes, 
+  removeMovieLike, 
+  updateMovieVisits, 
+  putMovieComment,
+  updateMovieComments,
+  setPopularMovies,
+  setRelatedMovies
+} from '../actions/MovieActions';
 import { push, go } from 'connected-react-router';
 
 export function* moviesGet({ payload }) {
@@ -54,6 +64,36 @@ export function* incrementVisits({ payload }) {
   }
 }
 
+export function* postComment({ payload }) {
+  try {
+    const { data } = yield call(movieService.postComment, payload);
+    yield put(putMovieComment(data));
+  } catch (error) {
+    yield put(push('/not-found'));
+    yield put(go());
+  } 
+}
+
+export function* getComments({ payload }) {
+  try {
+    const { data } = yield call(movieService.getComments, payload);
+    yield put(updateMovieComments(data));
+  } catch (error) {
+    yield put(push('/not-found'));
+    yield put(go());
+  }
+}
+
+export function* getPopularMovies() {
+  try {
+    const { data } = yield call(movieService.getPopularMovies);
+    yield put(setPopularMovies(data));
+  } catch (error) {
+    yield put(push('/not-found'));
+    yield put(go());
+  }
+}
+
 export function* getRelatedMovies({ payload }) {
   try {
     const { data } = yield call(movieService.getRelatedMovies, payload);
@@ -61,5 +101,5 @@ export function* getRelatedMovies({ payload }) {
   } catch (error) {
     yield put(push('/not-found'));
     yield put(go());
-  }
-} 
+  } 
+}
